@@ -334,7 +334,13 @@ class XModuleMixin(XBlockMixin):
             self._child_instances = []  # pylint: disable=attribute-defined-outside-init
             for child_loc in self.children:
                 try:
-                    child = self.runtime.get_block(child_loc)
+                    runtime_for_child = None
+                    if child_loc.block_type == "vertical":
+                        runtime_for_child = PureSystem(self.xmodule_runtime, self._runtime)
+                    else:
+                        runtime_for_child = self.runtime
+                    child = runtime_for_child.get_block(child_loc)
+
                     child.runtime.export_fs = self.runtime.export_fs
                 except ItemNotFoundError:
                     log.warning(u'Unable to load item {loc}, skipping'.format(loc=child_loc))
@@ -1432,7 +1438,10 @@ class PureSystem(ModuleSystem, DescriptorSystem):
         try:
             return getattr(self._module_system, name)
         except AttributeError:
-            return getattr(self._descriptor_system, name)
+            try:
+                return getattr(self._descriptor_system, name)
+            except AttributeError:
+                raise AttributeError
 
 
 class DoNothingCache(object):
