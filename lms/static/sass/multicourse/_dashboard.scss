@@ -475,6 +475,17 @@
         }
       }
 
+      .prerequisites {
+        @include clearfix;
+
+        p {
+          font-family: $sans-serif;
+          font-size: 1em;
+          color: $lighter-base-font-color;
+          margin-top: 10px;
+        }
+      }
+
       // "enrolled as" status
       .sts-enrollment {
         position: absolute;
