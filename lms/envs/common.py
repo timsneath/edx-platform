@@ -914,7 +914,9 @@ MIDDLEWARE_CLASSES = (
     'microsite_configuration.middleware.MicrositeMiddleware',
     'django_comment_client.middleware.AjaxExceptionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+
+    # subclassed version of the Django default SessionMiddleware
+    'microsite_configuration.middleware.MicrositeAwareSessionMiddleware',
 
     # Instead of AuthenticationMiddleware, we use a cached backed version
     #'django.contrib.auth.middleware.AuthenticationMiddleware',
