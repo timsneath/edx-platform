@@ -2,6 +2,7 @@
 Tests for student enrollment.
 """
 import ddt
+from django.contrib.auth.models import User
 import json
 import unittest
 
@@ -77,7 +78,10 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         )
 
         # Enroll in the course, this will fail if the mode is not explicitly professional.
-        resp = self.client.put(reverse('courseenrollment', kwargs={'course_id': (unicode(self.course.id))}))
+        resp = self.client.post(reverse(
+            'courseenrollment',
+            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+        ))
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
         # While the enrollment wrong is invalid, the response content should have
@@ -92,33 +96,68 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         self.client.logout()
 
         # Try to enroll, this should fail.
-        resp = self.client.put(reverse('courseenrollment', kwargs={'course_id': (unicode(self.course.id))}))
+        resp = self.client.post(reverse(
+            'courseenrollment',
+            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+        ))
         self.assertEqual(resp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_user_not_activated(self):
-        # Create a user account, but don't activate it
+        # Log out the default user, Bob.
+        self.client.logout()
+
+        # Create a user account
         self.user = UserFactory.create(
             username="inactive",
             email="inactive@example.com",
             password=self.PASSWORD,
-            is_active=False
+            is_active=True
         )
 
         # Log in with the unactivated account
         self.client.login(username="inactive", password=self.PASSWORD)
 
+        # Deactivate the user. Has to be done after login to get the user into the
+        # request and properly logged in.
+        self.user.is_active = False
+        self.user.save()
+
         # Enrollment should succeed, even though we haven't authenticated.
-        resp = self.client.put(reverse('courseenrollment', kwargs={'course_id': (unicode(self.course.id))}))
+        resp = self.client.post(reverse(
+            'courseenrollment',
+            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+        ))
         self.assertEqual(resp.status_code, 200)
+
+    def test_user_does_not_match_url(self):
+        # Try to enroll a student that is not the authenticated user.
+        CourseModeFactory.create(
+            course_id=self.course.id,
+            mode_slug='honor',
+            mode_display_name='Honor',
+        )
+
+        # Enrollment should succeed, even though we haven't authenticated.
+        resp = self.client.post(reverse(
+            'courseenrollment',
+            kwargs={'course_id': (unicode(self.course.id)), 'student': 'not_the_user'}
+        ))
+        self.assertEqual(resp.status_code, 401)
 
     def test_with_invalid_course_id(self):
         # Create an enrollment
-        resp = self.client.put(reverse('courseenrollment', kwargs={'course_id': 'entirely/fake/course'}))
+        resp = self.client.post(reverse(
+            'courseenrollment',
+            kwargs={'course_id': 'entirely/fake/course', 'student': self.user.username}
+        ))
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def _create_enrollment(self):
         """Enroll in the course and verify the URL we are sent to. """
-        resp = self.client.put(reverse('courseenrollment', kwargs={'course_id': (unicode(self.course.id))}))
+        resp = self.client.post(reverse(
+            'courseenrollment',
+            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+        ))
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = json.loads(resp.content)
         self.assertEqual(unicode(self.course.id), data['course']['course_id'])
