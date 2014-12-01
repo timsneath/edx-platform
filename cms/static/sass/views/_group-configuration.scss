@@ -220,7 +220,7 @@
 
       .wrapper-group-configuration-validation {
         @extend %t-copy-sub1;
-        background-color: #f8f8f8;
+        background-color: $gray-l6;
         margin-top: $baseline;
         padding: $baseline ($baseline*1.5) $baseline ($baseline*1.5);
 

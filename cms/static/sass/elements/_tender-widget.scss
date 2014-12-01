@@ -57,7 +57,7 @@
 
 .widget-layout .header {
   background: rgb(0, 159, 230);
-  padding: 10px 20px;
+  padding: ($baseline/2) $baseline;
 }
 
 .widget-layout h1, .widget-layout h2, .widget-layout h3, .widget-layout h4, .widget-layout h5, .widget-layout h6, .widget-layout label {
@@ -219,9 +219,9 @@
   display: block;
   width: 100%;
   height: auto !important;
-  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset,0 0 0 rgba(0,0,0,0);
-  -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset,0 0 0 rgba(0,0,0,0);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset,0 0 0 rgba(0,0,0,0);
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset,0 0 0 $transparent;
+  -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset,0 0 0 $transparent;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset,0 0 0 $transparent;
   -webkit-transition-property: background-color,0.15s;
   -moz-transition-property: background-color,0.15s;
   -ms-transition-property: background-color,0.15s;
@@ -258,7 +258,7 @@
   color: $white;
   text-align: center;
   margin-top: $baseline;
-  padding: 10px 20px;
+  padding: ($baseline/2) $baseline;
 }
 
 .widget-layout .form-actions #private-discussion-opt {

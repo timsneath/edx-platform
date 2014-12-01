@@ -305,7 +305,7 @@
         background-color: $button-bg-color;
         border: 1px solid $border-color-2;
         border-radius: 4px;
-        box-shadow: 0 1px 8px 0 rgba(0,0,0, 0.1);
+        box-shadow: 0 1px 8px 0 $shadow-l1;
         @include box-sizing(border-box);
         color: $base-font-color;
         font-family: $sans-serif;

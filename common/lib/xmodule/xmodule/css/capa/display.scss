@@ -321,7 +321,7 @@ div.problem {
       margin: $baseline/2 0;
       padding: $baseline/2;
       border-radius: 5px;
-      background: #F6F6F6;
+      background: $gray-l6;
 
       span {
         display: block;
@@ -364,7 +364,7 @@ div.problem {
     }
     .evaluation {
       p {
-        margin-bottom: 4px;
+        margin-bottom: ($baseline/5);
       }
     }
 
@@ -513,7 +513,7 @@ div.problem {
     padding: 0px 5px;
     border: 1px solid #eaeaea;
     border-radius: 3px;
-    background-color: #f8f8f8;
+    background-color: $gray-l6;
     white-space: nowrap;
     font-size: .9em;
   }
@@ -523,7 +523,7 @@ div.problem {
     padding: 6px $baseline/2;
     border: 1px solid $gray-l3;
     border-radius: 3px;
-    background-color: #f8f8f8;
+    background-color: $gray-l6;
     font-size: .9em;
     line-height: 1.4;
 
@@ -737,7 +737,7 @@ div.problem {
         a {
           display: block;
           padding: 9px;
-          background: #f6f6f6;
+          background: $gray-l6;
           box-shadow: inset 0 0 0 1px $white;
         }
       }

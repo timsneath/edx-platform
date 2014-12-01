@@ -107,7 +107,7 @@
       border-top-color: $white;
       border-width: 30px;
       left: 50%;
-      margin-left: -30px;
+      margin-left: -($baseline*1.5);
     }
     .arrow_box:before {
       border-color: rgba(0, 0, 0, 0);

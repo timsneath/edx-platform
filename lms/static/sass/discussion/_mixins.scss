@@ -97,7 +97,7 @@
 }
 
 @mixin discussion-wmd-preview {
-  padding: 10px 20px;
+  padding: ($baseline/2) $baseline;
   width: 100%;
   color: #333;
 

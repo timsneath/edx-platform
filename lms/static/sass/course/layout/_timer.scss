@@ -1,6 +1,6 @@
 div.timer-main {
+  @extend %ui-depth2;
   position: fixed;
-  z-index: 99;
   top: 0;
   right: 0;
   width: 100%;
@@ -12,14 +12,14 @@ div.timer-main {
     right: 10px;
     background: $black;
     color: $white;
-    padding: 10px 20px;
+    padding: ($baseline/2) $baseline;
     border-radius: 3px;
   }
 
   .timer_return_url {
     display: block;
     margin-bottom: ($baseline/4);
-    border-bottom: 1px solid tint(#000, 20%);
+    border-bottom: 1px solid tint($black, 20%);
     padding-bottom: ($baseline/4);
     font-size: 13px;
   }

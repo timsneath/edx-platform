@@ -1224,7 +1224,7 @@ input[name="subject"] {
   .coupons-table {
     width: 100%;
     tr:nth-child(even){
-        background-color: #f8f8f8;
+        background-color: $gray-l6;
         border-bottom: 1px solid #f3f3f3;
       }
     tr.always-gray{

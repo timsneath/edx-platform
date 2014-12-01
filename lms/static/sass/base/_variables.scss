@@ -56,19 +56,19 @@ $tmg-f3: 0.125s;
 $transparent: rgba(0,0,0,0); // used when color value is needed for UI width/transitions but element is transparent
 
 // COLORS
-$black: rgb(0,0,0);
+$black: rgb(0,0,0);  // #000000;
 $black-t0: rgba($black, 0.125);
 $black-t1: rgba($black, 0.25);
 $black-t2: rgba($black, 0.5);
 $black-t3: rgba($black, 0.75);
 
-$white: rgb(255,255,255);
+$white: rgb(255,255,255);  // #FFFFFF;
 $white-t0: rgba($white, 0.125);
 $white-t1: rgba($white, 0.25);
 $white-t2: rgba($white, 0.5);
 $white-t3: rgba($white, 0.75);
 
-$gray: rgb(127,127,127);
+$gray: rgb(127,127,127); // #7F7F7F;
 $gray-l1: tint($gray,20%);
 $gray-l2: tint($gray,40%);
 $gray-l3: tint($gray,60%); // #cbcbcb;

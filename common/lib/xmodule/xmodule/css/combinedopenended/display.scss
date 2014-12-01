@@ -321,7 +321,7 @@ div.combined-rubric-container {
   }
 
   div.written-feedback {
-      background: #f6f6f6;
+      background: $gray-l6;
       padding: ($baseline/4);
     }
 }
@@ -682,7 +682,7 @@ section.open-ended-child {
     min-height: 20px;
     height: auto;
     border: 1px solid #ddd;
-    background: #f6f6f6;
+    background: $gray-l6;
   }
 
   .grader-status {
@@ -690,7 +690,7 @@ section.open-ended-child {
     margin: ($baseline/2) 0;
     padding: ($baseline/2);
     border-radius: 5px;
-    background: #f6f6f6;
+    background: $gray-l6;
 
     span {
       display: block;
@@ -961,7 +961,7 @@ section.open-ended-child {
 
   .breadcrumbs {
     padding: ($baseline/10);
-    background-color: #f6f6f6;
+    background-color: $gray-l6;
     border-radius: 5px;
     margin-bottom: ($baseline/2);
   }

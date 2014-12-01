@@ -99,7 +99,7 @@ section.wiki {
       width: 180px;
       height: 27px;
       padding: 0 15px 0 35px;
-      background: url(../images/search-icon.png) no-repeat 9px center #f6f6f6;
+      background: url(../images/search-icon.png) no-repeat 9px center $gray-l6;
       border: 1px solid #c8c8c8;
       border-radius: 14px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12) inset;
@@ -197,7 +197,7 @@ section.wiki {
     pre {
       padding: 10px;
       border: 1px solid #ddd;
-      background: #f8f8f8;
+      background: $gray-l6;
       border-radius: 4px;
       font-size: 0.9em;
       font-family: Monaco, monospace;
@@ -260,7 +260,7 @@ section.wiki {
         line-height: 25px;
 
         &:hover, &:focus {
-          background-color: #f6f6f6;
+          background-color: $gray-l6;
           text-decoration: none;
         }
       }
@@ -351,7 +351,7 @@ section.wiki {
       }
 
       &:hover, &:focus {
-        background-color: #f6f6f6;
+        background-color: $gray-l6;
         text-decoration: none;
       }
     }
@@ -830,7 +830,7 @@ section.wiki {
     }
 
     tr:nth-child(even) {
-      background: #F6F6F6;
+      background: $gray-l6;
     }
   }
 
