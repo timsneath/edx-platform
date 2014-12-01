@@ -34,7 +34,7 @@
     font-size: 15px;
     color: $link-color;
     text-decoration: underline;
-    padding: 5px;
+    padding: ($baseline/4);
   }
 
   // system feedback - messages
@@ -99,7 +99,7 @@
 
     .item {
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: ($baseline/2);
 
       &:last-child {
         margin-bottom: 0;
@@ -159,7 +159,7 @@ section.instructor-dashboard-content-2 {
     display: inline-block;
     padding-bottom: 0;
     border-bottom: 0;
-    margin-bottom: ($baseline*.75);
+    margin-bottom: ($baseline*0.75);
   }
 
   input[type="button"] {
@@ -663,7 +663,7 @@ section.instructor-dashboard-content-2 {
     }
 
     input {
-      margin-right: 5px;
+      margin-right: ($baseline/4);
     }
 
     .request-res-section {
@@ -948,7 +948,7 @@ section.instructor-dashboard-content-2 {
     .report-downloads-table {
       .slickgrid {
         height: 300px;
-        padding: 5px;
+        padding: ($baseline/4);
       }
       // Disable horizontal scroll bar when grid only has 1 column. Remove this CSS class when more columns added.
       .slick-viewport {
@@ -1026,15 +1026,15 @@ section.instructor-dashboard-content-2 {
         height: 475px;
         width: 85%;
         margin: 5%;
-        background-color: #fff;
-        border: 1px solid #000;
+        background-color: $white;
+        border: 1px solid $black;
         border-radius: 25px;
         padding: 2.5%;
 
         .metrics-overlay-title {
           display: block;
           height: 50px;
-          margin-bottom: 10px;
+          margin-bottom: ($baseline/2);
           font-weight: bold;
         }
 
@@ -1042,7 +1042,7 @@ section.instructor-dashboard-content-2 {
           width: 100%;
           height: 370px;
           overflow: auto;
-          border: 1px solid #000;
+          border: 1px solid $black;
 
           table {
             width: 100%;
@@ -1057,7 +1057,7 @@ section.instructor-dashboard-content-2 {
         }
 
         .overflow-message {
-          padding-top: 20px;
+          padding-top: $baseline;
         }
 
         .download-csv {
@@ -1198,17 +1198,17 @@ input[name="subject"] {
     line-height: 1.3em;
   }
   .error-msgs {
-    background: #FFEEF5;color:#B72667;text-align: center;padding: 10px 0px;
+    background: #FFEEF5;color:#B72667;text-align: center;padding: ($baseline/2) 0;
     font-family: "Open Sans",Verdana,Geneva,sans-serif,sans-serif;font-size: 15px;
     border-bottom: 1px solid #B72667;
-    margin-bottom: 20px;
+    margin-bottom: $baseline;
     display: none;
     }
   .success-msgs {
-    background: #D0F5D5;color:#008801;text-align: center;padding: 10px 0px;
+    background: #D0F5D5;color:#008801;text-align: center;padding: ($baseline/2) 0;
     font-family: "Open Sans",Verdana,Geneva,sans-serif,sans-serif;font-size: 15px;
     border-bottom: 1px solid #008801;
-    margin-bottom: 20px;
+    margin-bottom: $baseline;
     display: none;
     }
   .content{
@@ -1229,12 +1229,12 @@ input[name="subject"] {
       }
     tr.always-gray{
       background: #eee !important;
-      border-top: 2px solid #FFFFFF;
+      border-top: 2px solid $white;
     }
     tr.always-white{
       background: #fff !important;
       td{
-        padding: 30px 0px 10px;
+        padding: ($baseline*1.5) 0 ($baseline/2);
       }
     }
     .coupons-headings {
@@ -1246,7 +1246,7 @@ input[name="subject"] {
         width: 120px;
       }
       th:first-child{
-        padding-left: 20px;
+        padding-left: $baseline;
       }
       th {
         text-align: left;
@@ -1291,7 +1291,7 @@ input[name="subject"] {
     // coupon items style
     .coupons-items {
       td {
-        padding: 10px 0px;
+        padding: ($baseline/2) 0;
         position: relative;
         line-height: normal;
         span.old-price{
@@ -1304,7 +1304,7 @@ input[name="subject"] {
         }
       }
       td:nth-child(5),td:first-child{
-        padding-left: 20px;
+        padding-left: $baseline;
       }
       td:nth-child(2){
          line-height: 22px;
@@ -1317,7 +1317,7 @@ input[name="subject"] {
       }
       td{
         a.edit-right{
-          margin-left: 15px;
+          margin-left: ($baseline*0.75);
         }
       }
     }
@@ -1329,12 +1329,12 @@ input[name="subject"] {
   // coupon edit and add modals
   #add-coupon-modal, #edit-coupon-modal, #set-course-mode-price-modal, #registration_code_generation_modal{
     .inner-wrapper {
-      background: #fff;
+      background: $white;
     }
     span.tip-text {
       font-size: 12px;
       display: block;
-      margin-top: 5px;
+      margin-top: ($baseline/4);
       color: #646464
     }
     top:-95px !important;
@@ -1372,7 +1372,7 @@ input[name="subject"] {
         float: left;
         label.required:after {
           content: "*";
-          margin-left: 5px;
+          margin-left: ($baseline/4);
         }
       }
       li:nth-child(even){
@@ -1398,7 +1398,7 @@ input[name="subject"] {
         float: left;
         label.required:after {
           content: "*";
-          margin-left: 5px;
+          margin-left: ($baseline/4);
         }
         min-height: 120px;
       }
@@ -1412,7 +1412,7 @@ input[name="subject"] {
       li#generate-registration-modal-field-country {
         width: 204px;
         margin-left: 15px !important;
-        margin-bottom: 20px;
+        margin-bottom: $baseline;
       }
       li:nth-child(even){
         margin-left: 0px !important;
@@ -1451,7 +1451,7 @@ input[name="subject"] {
       width: 100%;
       label.required:after {
         content: "*";
-        margin-left: 5px;
+        margin-left: ($baseline/4);
       }
     }
     li#set-course-mode-modal-field-currency{
@@ -1461,7 +1461,7 @@ input[name="subject"] {
       }
     }
     #registration-content form .field.text input {
-          background: #fff;
+          background: $white;
           margin-bottom: 0;
           height: 40px;
           border-radius: 3px;
@@ -1479,7 +1479,7 @@ input[name="subject"] {
         }
       }
       .instructions p {
-        margin-bottom: 5px;
+        margin-bottom: ($baseline/4);
       }
       form {
         border-radius: 0;
@@ -1490,7 +1490,7 @@ input[name="subject"] {
         .group-form {
           margin: 0;
           padding-top: 0;
-          padding-bottom: 20px;
+          padding-bottom: $baseline;
         }
         .list-input {
           margin: 0;
@@ -1515,7 +1515,7 @@ input[name="subject"] {
           color: #333;
         }
         .field.text input {
-          background: #fff;
+          background: $white;
           margin-bottom: 0;
         }
         .field input {

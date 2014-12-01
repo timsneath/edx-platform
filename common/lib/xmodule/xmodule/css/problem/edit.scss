@@ -46,7 +46,7 @@
   width: 0;
   border-radius: 0 3px 3px 0;
   @include linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 4px);
-  background-color: #fff;
+  background-color: $white;
   overflow: hidden;
   @include transition(width .3s linear 0s);
 

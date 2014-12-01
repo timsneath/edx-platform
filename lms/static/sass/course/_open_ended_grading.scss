@@ -5,7 +5,7 @@
     .problem-list
     {
         table-layout: auto;
-        margin-top: 10px;
+        margin-top: ($baseline/2);
         width:70%;
         td, th
         {
@@ -19,7 +19,7 @@
 
     .notification
     {
-        margin: 10px;
+        margin: ($baseline/2);
         width: 30%;
         display: inline-block;
         vertical-align: top;

@@ -38,7 +38,7 @@ h1 {
 }
 
 .page-actions {
-  margin-bottom: 30px;
+  margin-bottom: ($baseline*1.5);
 }
 
 .wrapper {
@@ -559,13 +559,13 @@ hr.divide {
 
 .item-details {
     float: left;
-    padding: 10px 0;
+    padding: ($baseline/2) 0;
 }
 
 .details {
     @extend %t-copy-sub1;
     display: none;
-    margin-bottom: 30px;
+    margin-bottom: ($baseline*1.5);
 }
 
 .window {
@@ -604,8 +604,8 @@ hr.divide {
   }
 
   .row {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: ($baseline/2);
+    padding-bottom: ($baseline/2);
     border-bottom: 1px solid #cbd1db;
   }
 }

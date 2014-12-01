@@ -1,5 +1,5 @@
 .home {
-  padding: 0px;
+  padding: 0;
 
   > .container {
     @include box-sizing(border-box);
@@ -16,13 +16,13 @@
     height: 460px;
     overflow: hidden;
     margin-top: $header_image_margin;
-    padding: 0px;
+    padding: 0;
     width: flex-grid(12);
 
     .outer-wrapper {
       @extend .animation-home-header-pop-up;
       margin: 0 auto;
-      padding: 240px 10px 0px;
+      padding: 240px ($baseline/2) 0;
       position: relative;
       max-width: 1200px;
       min-width: 760px;
@@ -30,7 +30,7 @@
     }
 
     .title {
-      background: #FFF;
+      background: $white;
       background: $course-header-bg;
       border: 1px solid $border-color-3;
       box-shadow: 0 4px 25px 0 rgba(0,0,0, 0.5);
@@ -79,7 +79,7 @@
     }
 
     .media {
-      background: #FFF;
+      background: $white;
       background: $course-header-bg;
       border: 1px solid $border-color-3;
       border-left: 0;
@@ -120,7 +120,7 @@
           width: 60px;
 
           &::after {
-            color: #fff;
+            color: $white;
             color: rgba(255,255,255, 0.8);
             content: "\25B6";
             display: block;
@@ -147,7 +147,7 @@
           border-color: rgba(255,255,255, 0.9);
 
           &::after {
-            color: #fff;
+            color: $white;
             color: rgba(255,255,255, 1);
           }
         }
@@ -157,7 +157,7 @@
 
   .highlighted-courses {
     @include box-sizing(border-box);
-    margin-bottom: 40px;
+    margin-bottom: ($baseline*2);
     position: relative;
     width: flex-grid(12);
     z-index: 1;
@@ -202,7 +202,7 @@
     hr {
       @extend %faded-hr-divider-light;
       border: none;
-      margin: 0px;
+      margin: 0;
       position: relative;
       z-index: 2;
 
@@ -367,7 +367,7 @@
 
   .more-info {
     border: 1px solid $border-color-2;
-    margin-bottom: 80px;
+    margin-bottom: ($baseline*4);
     width: flex-grid(12);
 
     header {
@@ -379,7 +379,7 @@
 
       h2 {
         float: left;
-        margin: 0px;
+        margin: 0;
         text-shadow: 0 1px rgba(255,255,255, 0.6);
       }
 
@@ -416,8 +416,8 @@
 
       .blog-posts {
         border-bottom: 1px solid $border-color-2;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
+        margin-bottom: $baseline;
+        padding-bottom: $baseline;
         @include clearfix;
 
         > article {
@@ -438,7 +438,7 @@
           }
 
           &:last-child {
-            margin-right: 0px;
+            margin-right: 0;
           }
 
           .post-graphics {
@@ -494,7 +494,7 @@
           line-height: 1.6em;
           font-family: $serif;
           font-style: italic;
-          margin-left: 10px;
+          margin-left: ($baseline/2);
 
           &.read-more {
             float: right;

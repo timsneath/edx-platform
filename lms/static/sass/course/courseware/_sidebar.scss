@@ -42,7 +42,7 @@
 
       &.ui-accordion-header {
         border-bottom: none;
-        color: #000;
+        color: $black;
 
         a {
           border-radius: 0;
@@ -91,7 +91,7 @@
       @include transition(background-color .1s linear 0s);
 
       &.is-open {
-        background: #fff;
+        background: $white;
       }
 
       &:first-child {

@@ -1,7 +1,7 @@
 // studio - utilities - INHERITED mixins and extends
 
 // NOTE: these are older/poorly architected mixins that we want to move away from using or refactor in the future.
-// They are still referenced when styliing current interface elements and as such need to be preserved for the time being.
+// They are still referenced when styling current interface elements and as such need to be preserved for the time being.
 // talbs: we need to slowly ween ourselves off of these
 // ====================
 
@@ -320,11 +320,11 @@
   h5 {
     @extend %t-strong;
     margin-bottom: 8px;
-    color: #fff;
+    color: $white;
   }
 
   .row {
-    margin-bottom: 10px;
+    margin-bottom: ($baseline/2);
     padding: 0;
     border: none;
   }

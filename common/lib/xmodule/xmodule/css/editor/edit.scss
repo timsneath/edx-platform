@@ -9,7 +9,7 @@
   .editor-bar {
     position: relative;
     @include linear-gradient(top, #d4dee8, #c9d5e2);
-    padding: 5px;
+    padding: ($baseline/4);
     border-bottom-color: #a5aaaf;
     @include clearfix;
 
@@ -33,7 +33,7 @@
 
     li {
       float: left;
-      margin-right: 5px;
+      margin-right: ($baseline/4);
 
       &:last-child {
         margin-right: 0;
@@ -53,8 +53,8 @@
       box-shadow: 1px -1px 1px rgba(0, 0, 0, .05);
 
       &.current {
-        background: #fff;
-        border-bottom-color: #fff;
+        background: $white;
+        border-bottom-color: $white;
       }
     }
   }

@@ -38,7 +38,7 @@
         @include clearfix;
         display: table-cell;
         vertical-align: middle;
-        padding: 20px 20px;
+        padding: $baseline;
         position: relative;
         width: flex-grid(8) + flex-gutter();
         z-index: 2;
@@ -46,8 +46,8 @@
         > hgroup {
           border-bottom: 1px solid $border-color-2;
           box-shadow: 0 1px 0 0 rgba(255,255,255, 0.6);
-          margin-bottom: 20px;
-          padding-bottom: 20px;
+          margin-bottom: $baseline;
+          padding-bottom: $baseline;
           width: 100%;
 
           h1 {
@@ -63,7 +63,7 @@
               color: $lighter-base-font-color;
               font: italic 800 0.6em/1em $sans-serif;
               letter-spacing: 0px;
-              margin-left: 15px;
+              margin-left: ($baseline*0.75);
               text-shadow: 0 1px rgba(255,255,255, 0.6);
               text-transform: none;
 
@@ -105,7 +105,7 @@
             display: block;
             font: normal 1.2rem/1.6rem $sans-serif;
             letter-spacing: 1px;
-            padding: 10px 0px;
+            padding: ($baseline/2) 0;
             text-transform: uppercase;
             text-align: center;
             width: flex-grid(6);
@@ -129,7 +129,7 @@
             float: left;
             font: normal 1.2rem/1.6rem $sans-serif;
             letter-spacing: 1px;
-            padding: 10px 0px;
+            padding: ($baseline/2) 0;
             text-transform: uppercase;
             text-align: center;
             width: flex-grid(3, 8);
@@ -161,7 +161,7 @@
             color: rgb(143, 14, 14);
             display: none;
             padding: 12px;
-            margin-top: 5px;
+            margin-top: ($baseline/4);
           }
         }
       }
@@ -315,20 +315,20 @@
 
     .inner-wrapper {
       > section {
-        margin-bottom: 40px;
+        margin-bottom: ($baseline*2);
       }
 
       .course-staff {
 
         .teacher {
           @include clearfix;
-          margin-bottom: 40px;
+          margin-bottom: ($baseline*2);
 
           h3 {
             color: $base-font-color;
             font-family: $sans-serif;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: ($baseline*0.75);
             text-transform: none;
           }
 
@@ -370,12 +370,12 @@
         }
 
         .response {
-          margin-bottom: 40px;
+          margin-bottom: ($baseline*2);
 
           h3 {
             font-family: $sans-serif;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: ($baseline*0.75);
           }
         }
       }
@@ -405,7 +405,7 @@
           background: url('../images/opencourseware.png') 0 0 no-repeat;
           width: 266px;
           height: 31px;
-          margin-bottom: 20px;
+          margin-bottom: $baseline;
         }
 
         ul {
@@ -446,7 +446,7 @@
         font-weight: 800;
         display: inline-block;
         letter-spacing: 0px;
-        margin-right: 15px;
+        margin-right: ($baseline*0.75);
         padding-right: 15px;
 
         &:hover, &:focus {
@@ -516,7 +516,7 @@
           }
 
           &:last-child {
-            margin-right: 0px;
+            margin-right: 0;
           }
         }
       }
@@ -531,7 +531,7 @@
 
     .important-dates {
       list-style: none;
-      margin: 0px;
+      margin: 0;
       padding: 0 ($baseline/2);
 
       li {

@@ -38,7 +38,7 @@ $white: rgb(255,255,255);
   hr {
     @extend %faded-hr-divider-light;
     border: none;
-    margin: 0px;
+    margin: 0;
     position: relative;
     z-index: 2;
 

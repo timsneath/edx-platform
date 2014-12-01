@@ -71,7 +71,7 @@
     @include white-button;
     @extend %cont-truncated;
     z-index: 1000;
-    padding: 0 $baseline 0 ($baseline*.75);
+    padding: 0 $baseline 0 ($baseline*0.75);
     height: 40px;
     font-size: 14px;
     line-height: 36px;
@@ -101,7 +101,7 @@
     line-height: 36px;
 
     .icon {
-      margin-right: 5px;
+      margin-right: ($baseline/4);
     }
   }
 

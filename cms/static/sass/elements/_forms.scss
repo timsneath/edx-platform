@@ -441,7 +441,7 @@ code {
 
 .CodeMirror {
   @extend %t-copy-sub1;
-  background: #fff;
+  background: $white;
   font-family: $f-monospace;
 }
 

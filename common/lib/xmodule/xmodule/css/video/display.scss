@@ -1,5 +1,5 @@
 & {
-    margin-bottom: 30px;
+    margin-bottom: ($baseline*1.5);
 }
 
 .is-hidden {
@@ -46,7 +46,7 @@ div.video {
     .video-download-button{
       display: inline-block;
       vertical-align: top;
-      margin: ($baseline*.75) ($baseline/2) 0 0;
+      margin: ($baseline*0.75) ($baseline/2) 0 0;
 
       > a {
         @include transition(all 0.25s ease-in-out 0s);
@@ -55,7 +55,7 @@ div.video {
         float: left;
         border-radius: 3px;
         background-color: $very-light-text;
-        padding: ($baseline*.75);
+        padding: ($baseline*0.75);
         color: $lighter-base-font-color;
 
         &:hover, &:focus {
@@ -126,7 +126,7 @@ div.video {
         height: 0px;
         border-style: solid;
         border-width: 30px 0 30px 50px;
-        border-color: transparent transparent transparent #ffffff;
+        border-color: transparent transparent transparent $white;
         position: relative;
       }
     }
@@ -161,9 +161,9 @@ div.video {
     section.video-controls {
       @include clearfix();
       background: #333;
-      border: 1px solid #000;
+      border: 1px solid $black;
       border-top: 0;
-      color: #ccc;
+      color: $gray-l3;
       position: relative;
 
       &:hover, &:focus {
@@ -183,21 +183,21 @@ div.video {
         text-indent: -9999px;
         -webkit-font-smoothing: antialiased;
         box-shadow: 1px 0 0 #555, inset 1px 0 0 #555;
-        color: #fff;
+        color: $white;
         cursor: pointer;
         border-width: 0 1px;
         border-style: solid;
-        border-color: #000;
+        border-color: $black;
 
         &:hover, &:focus {
           background-color: #444;
-          color: #fff;
+          color: $white;
           text-decoration: none;
         }
 
         &:active,
         &:focus {
-          color: #fff;
+          color: $white;
           background-color: #444;
           text-decoration: none;
         }
@@ -207,9 +207,9 @@ div.video {
         @include clearfix();
         @include transform(scaleY(0.5) translate3d(0, 50%, 0));
         background: #c2c2c2;
-        border: 1px solid #000;
+        border: 1px solid $black;
         border-radius: 0;
-        border-top: 1px solid #000;
+        border-top: 1px solid $black;
         box-shadow: inset 0 1px 0 #eee, 0 1px 0 #555;
         position: absolute;
         z-index: 1;
@@ -264,7 +264,7 @@ div.video {
         padding: 0;
 
         @media (max-width: 1120px) {
-          margin-right: lh(.5);
+          margin-right: lh(0.5);
           font-size: em(14);
         }
 
@@ -283,9 +283,9 @@ div.video {
             width: 14px;
 
             &:focus {
+              @extend %ui-depth4;
               position: relative;
-              z-index: 10000;
-              outline: #fff dotted thin;
+              outline: $white dotted thin;
               outline-offset: -2px;
             }
 
@@ -309,7 +309,7 @@ div.video {
             -webkit-font-smoothing: antialiased;
             padding-left: lh(.75);
             @media (max-width: 1120px) {
-              padding-left: lh(.5);
+              padding-left: lh(0.5);
             }
           }
         }
@@ -326,9 +326,9 @@ div.video {
           // overflow is used to bypass Firefox CSS :focus outline bug
           // http://johndoesdesign.com/blog/2012/css/firefox-and-its-css-focus-outline-bug/
           &:focus {
+            @extend %ui-depth5;
             position: relative;
-            z-index: 10000;
-            outline: #fff dotted thin;
+            outline: $white dotted thin;
             outline-offset: -2px;
             overflow: auto;
           }
@@ -350,26 +350,26 @@ div.video {
 
           .menu {
             @include transition(none);
+            @extend %ui-depth1;
             box-shadow: inset 1px 0 0 #555, 0 1px 0 #444;
             background-color: #444;
-            border: 1px solid #000;
+            border: 1px solid $black;
             bottom: 46px;
             display: none;
             opacity: 0;
             position: absolute;
-            z-index: 10;
 
             li {
               box-shadow:  0 1px 0 #555;
-              border-bottom: 1px solid #000;
-              color: #fff;
+              border-bottom: 1px solid $black;
+              color: $white;
               cursor: pointer;
 
               a {
                 border: 0;
-                color: #fff;
+                color: $white;
                 display: block;
-                padding: lh(.5);
+                padding: lh(0.5);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -430,7 +430,7 @@ div.video {
               font-size: em(14);
               font-weight: normal;
               letter-spacing: 1px;
-              padding: 0 lh(.25) 0 lh(.5);
+              padding: 0 lh(0.25) 0 lh(0.5);
               line-height: 46px;
               text-transform: uppercase;
               color: #999;
@@ -444,14 +444,14 @@ div.video {
               float: left;
               font-weight: bold;
               margin-bottom: 0;
-              padding: 0 lh(.5) 0 0;
+              padding: 0 lh(0.5) 0 0;
 
               @media (max-width: 1120px) {
-                padding: 0 lh(.5) 0 lh(.5);
+                padding: 0 lh(0.5) 0 lh(0.5);
               }
 
               line-height: 46px;
-              color: #fff;
+              color: $white;
             }
           }
         }
@@ -486,9 +486,10 @@ div.video {
 
           .volume-slider-container {
             @include transition(none);
+            @extend %ui-depth1;
             box-shadow: inset 1px 0 0 #555, 0 3px 0 #444;
             background-color: #444;
-            border: 1px solid #000;
+            border: 1px solid $black;
             bottom: 46px;
             display: none;
             opacity: 0;
@@ -496,7 +497,6 @@ div.video {
             width: 45px;
             height: 125px;
             margin-left: -1px;
-            z-index: 10;
 
             .volume-slider {
               height: 100px;
@@ -504,7 +504,7 @@ div.video {
               width: 5px;
               margin: 14px auto;
               background: #666;
-              border: 1px solid #000;
+              border: 1px solid $black;
               box-shadow: 0 1px 0 #333;
 
               a.ui-slider-handle {
@@ -629,7 +629,7 @@ div.video {
       }
 
       &:empty {
-        margin-bottom: 0px;
+        margin-bottom: 0;
       }
     }
   }
@@ -643,15 +643,15 @@ div.video {
     }
 
     article.video-wrapper section.video-controls.html5 {
-      bottom: 0px;
-      left: 0px;
-      right: 0px;
+      bottom: 0;
+      left: 0;
+      right: 0;
       position: absolute;
       z-index: 1;
     }
 
     article.video-wrapper div.video-player-pre, article.video-wrapper div.video-player-post {
-        height: 0px;
+        height: 0;
     }
 
     article.video-wrapper section.video-player {
@@ -673,7 +673,7 @@ div.video {
         bottom: 0;
         top: 0;
         width: 275px;
-        padding: 0 20px;
+        padding: 0 $baseline;
         z-index: 0;
         display: none;
     }
@@ -703,7 +703,7 @@ div.video {
     }
 
     article.video-wrapper div.video-player-pre, article.video-wrapper div.video-player-post {
-        height: 0px;
+        height: 0;
     }
 
     article.video-wrapper {
@@ -748,7 +748,7 @@ div.video {
     ol.subtitles {
       @include box-sizing(border-box);
       @include transition(none);
-      background: #000;
+      background: $black;
       height: 100%;
       width: 25%;
       padding: lh();
@@ -758,7 +758,7 @@ div.video {
         color: #aaa;
 
         &.current {
-          color: #fff;
+          color: $white;
         }
       }
     }

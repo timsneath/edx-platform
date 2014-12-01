@@ -371,7 +371,7 @@
     &.is-inactive {
       margin: ($baseline*1.5) 0 0 0;
       border-top: 2px dotted $gray-l2;
-      padding: ($baseline*.75) 0;
+      padding: ($baseline*0.75) 0;
       background-color: $gray-l4;
 
       .wrapper-xblock.level-nesting {
@@ -573,7 +573,7 @@
       width: 25px;
       height: 25px;
       vertical-align: middle;
-      padding: 5px;
+      padding: ($baseline/4);
       border-radius: 50%;
       margin: 0 $baseline/2;
       box-shadow: none;
@@ -680,7 +680,7 @@
       // label
       .setting-label {
           vertical-align: top;
-          margin-top: ($baseline*.75);
+          margin-top: ($baseline*0.75);
       }
 
       // inputs and labels
@@ -713,7 +713,7 @@
 
       .setting-clear {
         vertical-align: top;
-        margin: ($baseline*.75) 0 0 0;
+        margin: ($baseline*0.75) 0 0 0;
       }
 
       .create-setting {

@@ -149,7 +149,7 @@ $light-gray: #ddd;
 // used by descriptor css
 $lightGrey: #edf1f5;
 $darkGrey: #8891a1;
-$lightGrey1: #ccc;
+$lightGrey1: $gray-l3;
 $blue-d1: shade($blue,20%);
 $blue-d2: shade($blue,40%);
 $blue-d4: shade($blue,80%);
@@ -240,7 +240,7 @@ $courseware-header-bg: transparent;
 $footer-bg: $white;
 $courseware-footer-border: none;
 $courseware-footer-shadow: none;
-$courseware-footer-margin: 0px;
+$courseware-footer-margin: 0;
 $courseware-border-bottom-color: #44a2de;
 $courseware-button-border-color: #e6e6e6;
 $courseware-hover-color: #333435;
@@ -276,7 +276,7 @@ $audit-color-lvl2: tint($audit-color-lvl1, 33%);
 // ACTIONS: general
 $button-bg-image: linear-gradient(#fff 0%, rgb(250,250,250) 50%, rgb(237,237,237) 50%, rgb(220,220,220) 100%);
 $button-bg-color: transparent;
-$button-bg-hover-color: #fff;
+$button-bg-hover-color: $white;
 
 // ACTIONS: primary
 $action-primary-bg: $m-blue-d3;
@@ -381,7 +381,7 @@ $button-archive-color: #eee;
 
 // MISC: shadow, form, modal
 $shadow-color: $blue;
-$form-bg-color: #fff;
+$form-bg-color: $white;
 $modal-bg-color: rgb(245,245,245);
 
 // MISC: sidebar

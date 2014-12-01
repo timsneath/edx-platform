@@ -92,7 +92,7 @@
     }
 
     .wrapper-logo {
-      margin: ($baseline*.75) 0;
+      margin: ($baseline*0.75) 0;
 
       a {
         display: inline-block;
@@ -126,7 +126,7 @@
       .nav-legal-01 a {
 
         &:after {
-          margin-left: 5px;
+          margin-left: ($baseline/4);
           content: "-";
         }
       }
@@ -383,7 +383,7 @@ $edx-footer-bg-color: rgb(252,252,252);
 
     a {
       @extend %edx-footer-link;
-      margin-top: 20px;
+      margin-top: $baseline;
 
       .icon, .copy {
         display: inline-block;
