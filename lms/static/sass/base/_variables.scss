@@ -1,6 +1,7 @@
-// lms variables
+// lms - utilities - variables
+// ====================
 
-// base
+// BASE
 $baseline: 20px;
 
 // ====================
@@ -81,7 +82,7 @@ $gray-d2: shade($gray,40%);
 $gray-d3: shade($gray,60%);
 $gray-d4: shade($gray,80%);
 
-$pink: rgb(182,37,103);
+$pink: rgb(182,37,103); // #b72567;
 $pink-l1: tint($pink,20%);
 $pink-l2: tint($pink,40%);
 $pink-l3: tint($pink,60%);
@@ -98,7 +99,7 @@ $pink-u1: desaturate($pink,15%);
 $pink-u2: desaturate($pink,30%);
 $pink-u3: desaturate($pink,45%);
 
-$red: rgb(178, 6, 16);
+$red: rgb(178, 6, 16); // #b20610;
 $red-l1: tint($red,20%);
 $red-l2: tint($red,40%);
 $red-l3: tint($red,60%);
@@ -115,7 +116,7 @@ $red-u1: desaturate($red,15%);
 $red-u2: desaturate($red,30%);
 $red-u3: desaturate($red,45%);
 
-$green: rgb(37, 184, 90);
+$green: rgb(37, 184, 90); // #25b85a;
 $green-l1: tint($green,20%);
 $green-l2: tint($green,40%);
 $green-l3: tint($green,60%);
@@ -213,7 +214,7 @@ $m-green-t3: rgba($m-green,0.75);
 
 // ====================
 
-// shadows
+// SHADOWS
 $shadow: rgba(0,0,0,0.2);
 $shadow-l1: rgba(0,0,0,0.1);
 $shadow-l2: rgba(0,0,0,0.05);

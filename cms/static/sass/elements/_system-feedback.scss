@@ -406,7 +406,7 @@
   }
 
   .feedback-symbol {
-    @include transition (color 0.50s ease-in-out 0s);
+    @include transition (color $tmg-f1 ease-in-out 0s);
     @extend %t-icon3;
     width: flex-grid(1, 12);
     height: ($baseline*1.25);
@@ -584,7 +584,7 @@
   }
 
   .feedback-symbol {
-    @include transition (color 0.50s ease-in-out 0s);
+    @include transition (color $tmg-f1 ease-in-out 0s);
     @extend %t-icon3;
     width: flex-grid(1, 12);
     margin: ($baseline/4) flex-gutter() 0 0;

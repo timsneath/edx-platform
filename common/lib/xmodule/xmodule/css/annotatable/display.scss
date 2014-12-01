@@ -62,8 +62,8 @@ $annotatable--body-font-size: em(14);
 }
 
 .annotatable-span {
+  @extend %ui-fake-link;
   display: inline;
-  cursor: pointer;
 
   $highlight_index: 0;
   @each $highlight in (

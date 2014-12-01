@@ -26,13 +26,10 @@
 
   // form fields
   .list-fields {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    @extend %cont-no-list;
 
     .field {
       margin-bottom: $baseline;
-      padding: 0;
 
       &:last-child {
         margin-bottom: 0;

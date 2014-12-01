@@ -17,7 +17,7 @@
   }
 
   .expandable-icon {
-    @include transition(all 0.25s ease-in-out 0s);
+    @include transition(all $tmg-f2 ease-in-out 0s);
     display: inline-block;
     vertical-align: middle;
     margin-right: ($baseline/4);

@@ -36,13 +36,13 @@ nav.sequence-nav {
   // TODO (cpennington): This doesn't work anymore. XModules aren't able to
   // import from external sources.
   @extend .topbar;
-  margin: -4px 0 30px;
+  margin: -4px 0 ($baseline*1.5);
   position: relative;
   border-bottom: none;
 
   .left-shadow {
     @extend %ui-depth4;
-    @include linear-gradient(left, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0));
+    @include linear-gradient(left, $shadow, $transparent);
     position: absolute;
     top: 0;
     left: 0;
@@ -54,7 +54,7 @@ nav.sequence-nav {
 
   .right-shadow {
     @extend %ui-depth4;
-    @include linear-gradient(right, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0));
+    @include linear-gradient(right, $shadow, $transparent);
     position: absolute;
     top: 0;
     right: 0;
@@ -94,17 +94,17 @@ nav.sequence-nav {
       min-width: 20px;
 
       a {
+        @extend %ui-fake-link;
+        @include transition(none);
         width: 100%;
         height: 42px;
         margin: 0;
         background-position: center 14px;
         background-repeat: no-repeat;
         border: 1px solid transparent;
-        cursor: pointer;
         display: block;
         padding: 0;
         position: relative;
-        @include transition(none);
 
 /*        &:focus {
           outline: 0;

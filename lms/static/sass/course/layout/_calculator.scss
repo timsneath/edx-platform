@@ -2,7 +2,7 @@ div.calc-main {
   bottom: -126px;
   left: 0;
   position: fixed;
-  @include transition(bottom 0.75s linear 0s);
+  @include transition(bottom $tmg-avg linear 0s);
   -webkit-appearance: none;
   width: 100%;
   z-index: 99;

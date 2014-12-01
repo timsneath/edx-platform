@@ -262,7 +262,7 @@
       }
 
       a {
-        @include transition(all 0.25s ease-in-out 0s);
+        @include transition(all $tmg-f2 ease-in-out 0s);
 
         &::before {
           @include background-image(radial-gradient(50% 50%, circle closest-side, rgba(255,255,255, 1) 0%, rgba(255,255,255, 0) 100%));
@@ -275,7 +275,7 @@
           opacity: 0;
           width: 200px;
           position: absolute;
-          @include transition(all 0.25s ease-in-out 0s);
+          @include transition(all $tmg-f2 ease-in-out 0s);
           top: 50%;
           z-index: 1;
         }
@@ -285,7 +285,7 @@
           left: 0px;
           position: absolute;
           text-align: center;
-          @include transition(all 0.25s ease-in-out 0s);
+          @include transition(all $tmg-f2 ease-in-out 0s);
           width: 100%;
           z-index: 2;
 
@@ -303,7 +303,7 @@
 
         img {
           position: relative;
-          @include transition(all 0.25s ease-in-out 0s);
+          @include transition(all $tmg-f2 ease-in-out 0s);
           vertical-align: middle;
           z-index: 2;
         }

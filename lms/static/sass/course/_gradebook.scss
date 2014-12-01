@@ -88,20 +88,20 @@ div.gradebook-wrapper {
 
 		.left-shadow {
 			left: 0;
-			background-image: -webkit-gradient(linear, left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -webkit-gradient(linear, left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:  -webkit-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -webkit-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:     -moz-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -moz-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:      -ms-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -ms-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:       -o-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -o-linear-gradient(left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
+			background-image: -webkit-gradient(linear, left, $shadow-l1, $transparent 20%), -webkit-gradient(linear, left, $shadow-l1, $transparent);
+			background-image:  -webkit-linear-gradient(left, $shadow-l1, $transparent 20%), -webkit-linear-gradient(left, $shadow-l1, $transparent);
+			background-image:     -moz-linear-gradient(left, $shadow-l1, $transparent 20%), -moz-linear-gradient(left, $shadow-l1, $transparent);
+			background-image:      -ms-linear-gradient(left, $shadow-l1, $transparent 20%), -ms-linear-gradient(left, $shadow-l1, $transparent);
+			background-image:       -o-linear-gradient(left, $shadow-l1, $transparent 20%), -o-linear-gradient(left, $shadow-l1, $transparent);
 		}
 
 		.right-shadow {
 			right: 0;
-			background-image: -webkit-gradient(linear, right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -webkit-gradient(linear, right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:  -webkit-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -webkit-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:     -moz-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -moz-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:      -ms-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -ms-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
-			background-image:       -o-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0) 20%), -o-linear-gradient(right, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
+			background-image: -webkit-gradient(linear, right, $shadow-l1, $transparent 20%), -webkit-gradient(linear, right, $shadow-l1, $transparent);
+			background-image:  -webkit-linear-gradient(right, $shadow-l1, $transparent 20%), -webkit-linear-gradient(right, $shadow-l1, $transparent);
+			background-image:     -moz-linear-gradient(right, $shadow-l1, $transparent 20%), -moz-linear-gradient(right, $shadow-l1, $transparent);
+			background-image:      -ms-linear-gradient(right, $shadow-l1, $transparent 20%), -ms-linear-gradient(right, $shadow-l1, $transparent);
+			background-image:       -o-linear-gradient(right, $shadow-l1, $transparent 20%), -o-linear-gradient(right, $shadow-l1, $transparent);
 		}
 	}
 

@@ -339,7 +339,7 @@
 
     // STATE: hover/active
     &:hover, &:active {
-      cursor: pointer;
+      @extend %ui-fake-link;
       color: $ui-link-color-focus;
     }
   }

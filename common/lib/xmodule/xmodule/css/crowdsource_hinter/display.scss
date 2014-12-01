@@ -27,10 +27,10 @@
 .wizard-container {
   width: 3000px;
 
-  -webkit-transition:all 1.0s ease-in-out;
-  -moz-transition:all 1.0s ease-in-out;
-  -o-transition:all 1.0s ease-in-out;
-  transition:all 1.0s ease-in-out;
+  -webkit-transition:all $tmg-s1 ease-in-out;
+  -moz-transition:all $tmg-s1 ease-in-out;
+  -o-transition:all $tmg-s1 ease-in-out;
+  transition:all $tmg-s1 ease-in-out;
 }
 
 .wizard-viewbox {

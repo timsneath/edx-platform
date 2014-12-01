@@ -93,8 +93,7 @@
   }
 
   .list-advice {
-    list-style: none;
-    padding: 0;
+    @extend %cont-no-list;
     margin: $baseline 0;
 
     .item {
@@ -575,7 +574,7 @@ section.instructor-dashboard-content-2 {
 
     .action-edit-name {
       @include idashbutton($gray-l3);
-      @include transition(opacity 0.25s ease-in-out);
+      @include transition(opacity $tmg-f2 ease-in-out);
       @include font-size(14);
       @include line-height(14);
       margin-left: ($baseline/2);

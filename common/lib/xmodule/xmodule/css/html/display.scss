@@ -154,10 +154,10 @@ th {
 .wrapper-modal-image {
   
   .modal-ui-icon {
+    @extend %ui-fake-link;
     position: absolute;
     display: block;
     padding: ($baseline/4) 7px;
-    cursor: pointer;
     border-radius: 5px;
     opacity: .9;
     background: $white;
@@ -174,9 +174,9 @@ th {
   }
   
   .image-link {
+    @extend %ui-fake-link;
     position: relative;
     display: block;
-    cursor: pointer;
     
     .action-fullscreen {
       display: none;
@@ -190,14 +190,14 @@ th {
   }
   
   .image-modal {
+    @extend %ui-fake-link;
+    @extend %ui-depth5;
     position: fixed;
     top: 0;
     left: 0;
     display: none;
     height: 100%;
     width: 100%;
-    @extend %ui-depth5;
-    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.7);
   
     .image-content {
@@ -228,18 +228,14 @@ th {
       }
       
       .image-controls {
+        @extend %cont-no-list;
         position: absolute;
         right: 10px;
         bottom: 10px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
           
         .image-control {
           position: relative;
           display: inline-block;
-          margin: 0;
-          padding: 0;
           
           .modal-ui-icon {
             position: relative;
@@ -251,7 +247,7 @@ th {
               margin-left: ($baseline/4);
             }
             &.is-disabled {
-              opacity: .5;
+              opacity: 0.5;
               cursor: default;
             }
           }

@@ -110,7 +110,7 @@
       margin-left: -($baseline*1.5);
     }
     .arrow_box:before {
-      border-color: rgba(0, 0, 0, 0);
+      border-color: $transparent;
       border-top-color: $black;
       border-width: 36px;
       left: 50%;

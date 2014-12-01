@@ -160,7 +160,7 @@
 // extends - UI - buttons
 %ui-btn {
   @include box-sizing(border-box);
-  @include transition(color 0.25s ease-in-out 0s, border-color 0.25s ease-in-out 0s, background 0.25s ease-in-out 0s, box-shadow 0.25s ease-in-out 0s);
+  @include transition(color $tmg-f2 ease-in-out 0s, border-color $tmg-f2 ease-in-out 0s, background $tmg-f2 ease-in-out 0s, box-shadow $tmg-f2 ease-in-out 0s);
   display: inline-block;
   cursor: pointer;
 
