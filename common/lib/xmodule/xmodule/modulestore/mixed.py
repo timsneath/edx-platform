@@ -170,7 +170,7 @@ class MixedModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase):
                 return mapping
             else:
                 for store in self.modulestores:
-                    if store.has_course(course_id):
+                    if store.has_course(course_id, ignore_case=True):
                         self.mappings[course_id] = store
                         return store
 

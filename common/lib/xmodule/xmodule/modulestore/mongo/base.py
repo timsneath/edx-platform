@@ -1472,6 +1472,9 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
         # Using the course_key, find or insert the course asset metadata document.
         # A single document exists per course to store the course asset metadata.
         course_key = self.fill_in_run(course_key)
+        if course_key.run is None:
+            log.warning(u'No run found for course {} on asset request.'.format(unicode(course_key)))
+            return None
         course_assets = self.asset_collection.find_one(
             {'course_id': unicode(course_key)},
         )
@@ -1529,6 +1532,8 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
             dest_course_key (CourseKey): identifier of course to copy to
         """
         source_assets = self._find_course_assets(source_course_key)
+        if source_assets is None:
+            return
         dest_assets = source_assets.copy()
         dest_assets['course_id'] = unicode(dest_course_key)
         del dest_assets['_id']
@@ -1602,6 +1607,8 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
         # Using the course_id, find the course asset metadata document.
         # A single document exists per course to store the course asset metadata.
         course_assets = self._find_course_assets(course_key)
+        if course_assets is None:
+            return
         self.asset_collection.remove(course_assets['_id'])
 
     def heartbeat(self):
