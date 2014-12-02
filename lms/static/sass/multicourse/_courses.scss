@@ -85,7 +85,7 @@
 
   section.message {
     border-top: 1px solid $border-color-2;
-    @include clearfix;
+    @include clearfix();
     margin-top: $baseline;
     padding-top: ($baseline*3);
     @include columns(2 20px);

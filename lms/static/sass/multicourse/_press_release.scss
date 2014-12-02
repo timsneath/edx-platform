@@ -90,7 +90,7 @@
 
 
     div.social-sharing {
-      @include clearfix;
+      @include clearfix();
 
       hr.horizontal-divider {
         margin-top: 40px !important;

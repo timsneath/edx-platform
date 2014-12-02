@@ -2,7 +2,7 @@
 // ====================
 
 .dashboard {
-  @include clearfix;
+  @include clearfix();
   padding: ($baseline*2) 0 0 0;
 
   .profile-sidebar {
@@ -33,11 +33,11 @@
     }
 
     .user-info {
-      @include clearfix;
+      @include clearfix();
 
       > ul {
         @include box-sizing(border-box);
-        @include clearfix;
+        @include clearfix();
         margin: 0;
         border: 1px solid $border-color-2;
         border-top: none;
@@ -47,7 +47,7 @@
         background: $white;
 
         li {
-          @include clearfix;
+          @include clearfix();
           border-bottom: 1px dotted $border-color-2;
           list-style: none;
           margin-bottom: ($baseline*0.75);
@@ -178,7 +178,7 @@
     }
 
     .news-carousel {
-      @include clearfix;
+      @include clearfix();
       margin: 30px 10px 0;
       border: 1px solid $border-color-2;
       background: $dashboard-profile-color;
@@ -189,7 +189,7 @@
       }
 
       header {
-        @include clearfix;
+        @include clearfix();
         height: 50px;
       }
 
@@ -374,7 +374,7 @@
       }
 
       .info {
-        @include clearfix;
+        @include clearfix();
         @include padding(0, 10px, 0, 230px);
 
         > hgroup {
@@ -598,7 +598,7 @@
 
     // UI: message
     .message {
-      @include clearfix;
+      @include clearfix();
       border-radius: 3px;
       display: none;
       z-index: 10;
@@ -626,7 +626,7 @@
       }
 
       .actions {
-        @include clearfix;
+        @include clearfix();
         list-style: none;
         margin: 0;
         padding: 0;

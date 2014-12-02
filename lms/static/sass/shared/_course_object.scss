@@ -1,6 +1,6 @@
 .highlighted-courses, .find-courses {
   .courses {
-    @include clearfix;
+    @include clearfix();
     padding: ($baseline*2) 0 ($baseline*0.75) ;
 
     .university-column {
@@ -81,7 +81,7 @@
         border: 1px solid rgba(0,0,0, 0.5);
         @include border-right-radius(2px);
         box-shadow: 0 1px 5px 0 rgba(0,0,0, 0.15);
-        @include clearfix;
+        @include clearfix();
         position: absolute;
         right: -4px;
         @include transition(all 0.15s linear 0s);

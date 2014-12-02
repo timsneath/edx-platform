@@ -43,7 +43,7 @@
   }
 
   .asset-library {
-    @include clearfix;
+    @include clearfix();
 
     .meta-wrap {
       margin-bottom: $baseline;
@@ -63,7 +63,7 @@
     }
 
     .pagination {
-      @include clearfix;
+      @include clearfix();
       display: inline-block;
       width: flex-grid(3, 12);
 

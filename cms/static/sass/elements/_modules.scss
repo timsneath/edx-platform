@@ -115,7 +115,7 @@
 
     // add component - list of green buttons
     .new-component-type {
-      @include clearfix;
+      @include clearfix();
 
       li {
         display: inline-block;
@@ -154,7 +154,7 @@
   // swaps in when a green button is clicked
   // --------------------
   .new-component-templates {
-    @include clearfix;
+    @include clearfix();
     display: none;
     margin: $baseline ($baseline*2);
     border-radius: 3px;
@@ -184,7 +184,7 @@
   // individual menus
   // --------------------
   .new-component-template {
-    @include clearfix;
+    @include clearfix();
 
     li {
       border: none;

@@ -104,7 +104,7 @@
 
   .container, .introduction {
     @include box-sizing(border-box);
-    @include clearfix;
+    @include clearfix();
     margin: 0 auto;
     width: 960px;
     background: $container-bg;

@@ -39,7 +39,7 @@
 
     .our-mission {
       border-bottom: 1px solid rgb(220,220,220);
-      @include clearfix;
+      @include clearfix();
       margin: 0 auto 100px;
       padding-bottom: 40px;
 
@@ -73,7 +73,7 @@
 
     .message {
       border-bottom: 1px solid rgb(220,220,220);
-      @include clearfix;
+      @include clearfix();
       margin-bottom: ($baseline*4);
       padding-bottom: 80px;
       position: relative;
@@ -133,7 +133,7 @@
     }
 
     .partners {
-      @include clearfix;
+      @include clearfix();
 
       > article {
         float: left;
@@ -148,7 +148,7 @@
 
 
   .faq {
-    @include clearfix;
+    @include clearfix();
 
     nav.categories {
       border: 1px solid rgb(220,220,220);
@@ -205,7 +205,7 @@
   .press {
     .press-story {
       border-bottom: 1px solid rgb(220,220,220);
-      @include clearfix;
+      @include clearfix();
       margin-bottom: ($baseline*2);
       padding-bottom: 40px;
 
@@ -255,7 +255,7 @@
   }
 
   .contact {
-    @include clearfix;
+    @include clearfix();
     margin: 0 auto;
 
     .photo {

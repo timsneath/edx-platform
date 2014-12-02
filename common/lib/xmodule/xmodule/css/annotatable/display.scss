@@ -24,8 +24,8 @@ $annotatable--body-font-size: em(14);
   position: relative;
   padding: .5em 1em;
   border: 1px solid $annotatable--border-color;
-  border-radius: .5em;
-  margin-bottom: .5em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
 
   &.shaded { background-color: #EDEDED; }
 
@@ -35,9 +35,9 @@ $annotatable--body-font-size: em(14);
   }
   .annotatable-section-body {
     border-top: 1px solid $annotatable--border-color;
-    margin-top: .5em;
-    padding-top: .5em;
-    @include clearfix;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    @include clearfix();
   }
 
   ul.instructions-template {

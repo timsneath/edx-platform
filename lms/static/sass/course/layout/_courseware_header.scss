@@ -1,5 +1,5 @@
 nav.course-material {
-  @include clearfix;
+  @include clearfix();
   @include box-sizing(border-box);
   border-bottom: none;
   margin: 0px auto 0px;
@@ -14,7 +14,7 @@ nav.course-material {
 
   ol.course-tabs {
     @include border-top-radius(4px);
-    @include clearfix;
+    @include clearfix();
     padding: 28px 0 10px 0;
     @include margin-left(10px);
 

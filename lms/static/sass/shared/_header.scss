@@ -11,7 +11,7 @@ header.global {
   width: 100%;
 
   nav {
-    @include clearfix;
+    @include clearfix();
     height: 40px;
     margin: 0 auto;
     padding: 18px ($baseline/2) 0;

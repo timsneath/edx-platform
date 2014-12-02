@@ -7,16 +7,16 @@
   }
 
   .editor-bar {
-    position: relative;
+    @include clearfix();
     @include linear-gradient(top, #d4dee8, #c9d5e2);
+    position: relative;
     padding: ($baseline/4);
     border-bottom-color: #a5aaaf;
-    @include clearfix;
 
     a {
       display: block;
       float: left;
-      padding: 3px 10px 7px;
+      padding: 3px ($baseline/2) 7px;
       margin-left: 7px;
       border-radius: 2px;
 

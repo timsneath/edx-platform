@@ -22,7 +22,7 @@
       border: 1px solid $border-color-3;
       box-shadow: 0 4px 25px 0 rgba(0,0,0, 0.5);
       @include box-sizing(border-box);
-      @include clearfix;
+      @include clearfix();
       margin: 0 auto;
       max-width: 1200px;
       min-width: 760px;
@@ -35,7 +35,7 @@
       }
       .intro {
         @include box-sizing(border-box);
-        @include clearfix;
+        @include clearfix();
         display: table-cell;
         vertical-align: middle;
         padding: $baseline;
@@ -92,7 +92,7 @@
         }
 
         .main-cta {
-          @include clearfix;
+          @include clearfix();
           float: left;
           margin-right: flex-gutter();
           @include transition(all 0.15s linear 0s);
@@ -232,7 +232,7 @@
   }
 
   .container {
-    @include clearfix;
+    @include clearfix();
 
     .wrap-instructor-info {
       &.studio-view {
@@ -261,7 +261,7 @@
     nav {
       border-bottom: 1px solid $border-color-2;
       @include box-sizing(border-box);
-      @include clearfix;
+      @include clearfix();
       margin: 40px 0;
       width: flex-grid(12);
 
@@ -321,7 +321,7 @@
       .course-staff {
 
         .teacher {
-          @include clearfix;
+          @include clearfix();
           margin-bottom: ($baseline*2);
 
           h3 {
@@ -363,7 +363,7 @@
       }
 
       .faq {
-        @include clearfix;
+        @include clearfix();
 
         .responses {
           float: left;
@@ -535,7 +535,7 @@
       padding: 0 ($baseline/2);
 
       li {
-        @include clearfix;
+        @include clearfix();
         border-bottom: 1px dotted $border-color-2;
         margin-bottom: $baseline;
         padding-bottom: ($baseline/2);

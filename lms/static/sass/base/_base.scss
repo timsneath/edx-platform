@@ -21,7 +21,7 @@ h1 {
   color: $base-font-color;
   font: normal 2em/1.4em $sans-serif;
   letter-spacing: 1px;
-  margin-bottom: 30px;
+  margin-bottom: ($baseline*1.5);
   text-align: center;
   //text-transform: uppercase;
 }
@@ -115,10 +115,10 @@ a:focus {
 }
 
 .container {
-  @include clearfix;
+  @include clearfix();
   @include box-sizing(border-box);
   margin: 0 auto 0;
-  padding: 0px 30px;
+  padding: 0 ($baseline*1.5);
   max-width: grid-width(12);
   min-width: 760px;
   width: flex-grid(12);
@@ -130,10 +130,10 @@ span.edx {
 }
 
 .static-container {
-  @include clearfix;
+  @include clearfix();
   margin: 0 auto 0;
   max-width: 1200px;
-  padding: 60px 0px 120px;
+  padding: ($baseline*3) 0 ($baseline*6);
   width: flex-grid(12);
 
   .inner-wrapper {
@@ -152,7 +152,7 @@ span.edx {
   }
 
   h1 {
-    margin-bottom: 30px;
+    margin-bottom: ($baseline*1.5);
   }
 
   h1 + hr {
@@ -173,7 +173,7 @@ span.edx {
   left: 50%;
   width: 20px;
   height: 20px;
-  margin-left: -10px;
+  margin-left: -($baseline/2);
   background: url(../images/spinner.gif) no-repeat;
 }
 
@@ -186,7 +186,7 @@ mark {
 
 .site-status {
   display: none;
-  padding: 10px;
+  padding: ($baseline/2);
   @include linear-gradient(top, $shadow-l1, rgba(0, 0, 0, .0));
   background-color: $site-status-color;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, .3) inset;
@@ -223,7 +223,7 @@ mark {
   border-radius: 0 0 3px 3px;
   background: #f4f4e0;
   color: #3c3c3c;
-  padding: 5px 20px 8px;
+  padding: ($baseline/4) $baseline 8px;
   font-size: 13px;
   text-align: center;
 
@@ -244,7 +244,7 @@ mark {
     cursor: pointer;
     border: 1px solid $gray-l3;
     border-top-style: none;
-    border-radius: 0px 0px ($baseline/2) ($baseline/2);
+    border-radius: 0 0 ($baseline/2) ($baseline/2);
     background: transparentize($white, 0.25);
     color: transparentize(#333, 0.25);
     font-weight: bold;
@@ -260,7 +260,7 @@ mark {
 }
 
 .help-buttons {
-  padding: 10px 50px;
+  padding: ($baseline/2) ($baseline*2.5);
 
   a:link, a:visited {
     padding: ($baseline*0.75) 0;

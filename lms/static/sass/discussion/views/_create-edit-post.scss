@@ -4,7 +4,7 @@
 // UI: form structure
 .forum-new-post-form,
 .edit-post-form {
-  @include clearfix;
+  @include clearfix();
   box-sizing: border-box;
   margin: 0;
   border-radius: 3px;

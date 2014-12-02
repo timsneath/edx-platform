@@ -19,7 +19,7 @@
   }
 
   .message {
-    @include clearfix;
+    @include clearfix();
     margin-bottom: ($baseline*4);
     position: relative;
 
@@ -69,7 +69,7 @@
   }
 
   .jobs-wrapper {
-    @include clearfix;
+    @include clearfix();
     float: left;
     padding-top: 80px;
     width: flex-grid(12);

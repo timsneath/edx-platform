@@ -28,7 +28,7 @@ div.video {
   }
 
   div.tc-wrapper {
-    @include clearfix;
+    @include clearfix();
     position: relative;
   }
 
@@ -717,7 +717,7 @@ div.video {
     }
 
     div.tc-wrapper {
-      @include clearfix;
+      @include clearfix();
       width: 100%;
       height: 100%;
 

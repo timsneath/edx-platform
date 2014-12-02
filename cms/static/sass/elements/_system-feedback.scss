@@ -879,7 +879,7 @@ body.uxdesign.alerts {
     border-radius: 3px;
     background: #fbf6e1;
     // background: #edbd3c;
-    @include clearfix;
+    @include clearfix();
 
     .alert-message {
       @include float(left);

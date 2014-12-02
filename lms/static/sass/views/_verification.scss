@@ -1003,7 +1003,7 @@
   // UI: nav - wizard
   .nav-wizard {
     @extend %ui-well;
-    @include clearfix;
+    @include clearfix();
     width: flex-grid(12,12);
     border-radius: ($baseline/10);
     background: $m-gray-l4;

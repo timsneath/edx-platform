@@ -12,7 +12,7 @@
     background-image: $homepage-bg-image;
     border-bottom: 1px solid $border-color-3;
     box-shadow: 0 1px 0 0 $course-header-bg, inset 0 -1px 5px 0 $shadow-l1;
-    @include clearfix;
+    @include clearfix();
     height: 460px;
     overflow: hidden;
     margin-top: $header_image_margin;
@@ -26,7 +26,7 @@
       position: relative;
       max-width: 1200px;
       min-width: 760px;
-      @include clearfix;
+      @include clearfix();
     }
 
     .title {
@@ -373,7 +373,7 @@
     header {
       @include background-image(linear-gradient(-90deg, rgb(250,250,250), rgb(230,230,230)));
       border-bottom: 1px solid $border-color-2;
-      @include clearfix;
+      @include clearfix();
       padding: 10px 20px 8px;
       position: relative;
 
@@ -418,13 +418,13 @@
         border-bottom: 1px solid $border-color-2;
         margin-bottom: $baseline;
         padding-bottom: $baseline;
-        @include clearfix;
+        @include clearfix();
 
         > article {
           border: 1px dotted transparent;
           border-color: $border-color-2;
           @include box-sizing(border-box);
-          @include clearfix;
+          @include clearfix();
           float: left;
           margin-right: flex-gutter();
           padding: 10px;

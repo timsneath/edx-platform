@@ -141,7 +141,7 @@
       z-index: 2;
 
       .input-group {
-        @include clearfix;
+        @include clearfix();
         border-bottom: 1px solid rgb(210,210,210);
         box-shadow: 0 1px 0 0 rgba(255,255,255, 0.6);
         margin-bottom: ($baseline*1.5);

@@ -39,7 +39,7 @@ div.name{
 }
 
 section.combined-open-ended {
-  @include clearfix;
+  @include clearfix();
 
   .written-feedback {
     position: relative;
@@ -675,7 +675,7 @@ section.open-ended-child {
   }
 
   div.short-form-response {
-    @include clearfix;
+    @include clearfix();
     overflow-y: auto;
     margin-bottom: 0;
     padding: ($baseline/2);
@@ -686,7 +686,7 @@ section.open-ended-child {
   }
 
   .grader-status {
-    @include clearfix;
+    @include clearfix();
     margin: ($baseline/2) 0;
     padding: ($baseline/2);
     border-radius: 5px;

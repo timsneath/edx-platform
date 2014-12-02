@@ -55,7 +55,7 @@ div.problem {
   }
 
   .choicegroup {
-    @include clearfix;
+    @include clearfix();
     min-width: 100px;
     width: auto !important;
     width: 100px;
@@ -317,7 +317,7 @@ div.problem {
 
 
     .grader-status {
-      @include clearfix;
+      @include clearfix();
       margin: $baseline/2 0;
       padding: $baseline/2;
       border-radius: 5px;

@@ -10,7 +10,7 @@ section.wiki {
   }
 
   .wiki-wrapper {
-    @include clearfix;
+    @include clearfix();
 
     > header {
       height: 33px;
@@ -609,7 +609,7 @@ section.wiki {
     text-align: left;
     padding: 20px;
     font-size: 14px;
-    @include clearfix;
+    @include clearfix();
 
     h3 {
       font-weight: bold;
@@ -705,7 +705,7 @@ section.wiki {
   #settings_form {
     .well {
       margin-bottom: ($baseline*0.75);
-      @include clearfix;
+      @include clearfix();
     }
 
     .control-group {
@@ -788,7 +788,7 @@ section.wiki {
     border-radius: 5px;
 
     .well-small {
-      @include clearfix;
+      @include clearfix();
 
       a {
         display: inline-block;

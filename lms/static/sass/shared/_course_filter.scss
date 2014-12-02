@@ -9,7 +9,7 @@
     border-bottom-color: rgb(200,200,200);
     border-top: none;
     @include border-bottom-radius(4px);
-    @include clearfix;
+    @include clearfix();
     height: 60px;
     padding: 12px 10px;
     position: relative;

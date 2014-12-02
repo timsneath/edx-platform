@@ -20,7 +20,7 @@ body.discussion {
   }
 
   .edit-post-form {
-    @include clearfix;
+    @include clearfix();
     margin-bottom: ($baseline*2);
     width: 100%;
     @include box-sizing(border-box);
@@ -226,7 +226,7 @@ body.discussion {
 }
 
 .container .discussion-body {
-  @include clearfix;
+  @include clearfix();
   display: block;
   border: none;
   background: transparent;
@@ -621,7 +621,7 @@ body.discussion {
 
   .discussion-reply-new {
     padding: $baseline ($baseline*1.5);
-    @include clearfix;
+    @include clearfix();
     @include transition(opacity .2s linear 0s);
 
     h4 {
@@ -785,7 +785,7 @@ body.discussion {
           }
 
           .discussion-post {
-            @include clearfix;
+            @include clearfix();
 
             .inline-comment-count {
               @extend %ui-depth2;
@@ -965,7 +965,7 @@ body.discussion {
   .edit-post-form {
     width: 100%;
     margin-bottom: $baseline;
-    @include clearfix;
+    @include clearfix();
     @include box-sizing(border-box);
 
     .form-row {

@@ -67,7 +67,7 @@
   }
 
   .row {
-    @include clearfix;
+    @include clearfix();
     padding-bottom: 5px !important;
     margin-bottom: 10px !important;
     border-bottom: 1px solid #ddd !important;
