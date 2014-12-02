@@ -20,6 +20,7 @@ from xblock.fields import Scope, Integer, Float, List, XBlockMixin, String, Dict
 from xblock.fragment import Fragment
 from xblock.runtime import Runtime, IdReader
 from xmodule.fields import RelativeTime
+from xmodule.license import License
 
 from xmodule.errortracker import exc_info_to_str
 from xmodule.modulestore.exceptions import ItemNotFoundError
@@ -928,6 +929,8 @@ class XModuleDescriptor(XModuleMixin, HTMLSnippet, ResourceTemplates, XBlock):
             editor_type = "Dict"
         elif isinstance(field, RelativeTime):
             editor_type = "RelativeTime"
+        elif isinstance(field, License):
+            editor_type = "License"
         metadata_field_editor_info['type'] = editor_type
         metadata_field_editor_info['options'] = [] if values is None else values
 
