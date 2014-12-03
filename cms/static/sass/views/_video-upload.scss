@@ -1,11 +1,11 @@
-.view-video-upload {
+.view-video-uploads {
 
   .file-drop {
     @include clearfix();
     margin-bottom: ($baseline*1.5);
-    background: $white;
-    border: 2px dashed #ccc;
+    border: 2px dashed $gray-l3;
     border-radius: ($baseline/5);
+    background: $white;
 
     .file-drop-upload-form {
       display: inline-block;
@@ -41,87 +41,20 @@
       .video-upload-item {
         display: inline-block;
         width: flex-grid(4);
+        padding: (flex-gutter() - 1.6);
         vertical-align: top;
-        padding: 6px .5%;
 
         .video-detail-wrapper {
-          min-height: ($baseline*2.5);
+          min-height: ($baseline*4);
           padding: ($baseline/2);
-          border: 1px solid #ccc;
+          border: 1px solid $gray-l3;
           border-radius: ($baseline/5);
 
           .video-detail-title {
+            @extend %cont-truncated;
+            @extend %t-strong;
             margin-bottom: ($baseline/2);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             font-size: 90%;
-            font-weight: 600;
-          }
-
-          .video-detail-progress-bar {
-            // display: inline-block;
-            display: none; // Hiding for v 1
-            width: flex-grid(10);
-            border-radius: ($baseline/5);
-
-            progress.upload-progress-bar { 
-              -webkit-appearance: none;
-              -moz-appearance: none;
-              appearance: none;
-              width: 100%;
-              height: 5px;
-              border: none;
-            }
-
-            progress.upload-progress-bar::-webkit-progress-bar {
-              background: $white;
-              border-radius: ($baseline/5);
-            }
-
-            progress.upload-progress-bar::-webkit-progress-value {
-              background: $gray;
-            }
-          }
-
-          .video-detail-progress-bar.bar-error {
-
-            progress.upload-progress-bar::-webkit-progress-value {
-              background: $color-error;
-            }
-          }
-
-          .video-detail-progress-bar.bar-success {
-
-            progress.upload-progress-bar::-webkit-progress-value {
-              background: $color-ready;
-            }
-          }
-
-          .video-actions {
-            // display: inline-block;
-            display: none; // Hiding for v 1
-            width: flex-grid(2);
-            margin-top: ($baseline/5);
-            text-align: right;
-
-            .action-button {
-              background: transparent;
-              border: 0;
-
-              .icon {
-                color: $gray;
-              }
-
-              .icon-remove:hover, .icon-remove:focus, 
-              .icon-trash:hover, .icon-trash:focus {
-                color: $color-error;
-              } 
-
-              .icon-rotate-left:hover, .icon-rotate-left:focus {
-                color: $blue;
-              }
-            }
           }
 
           .status-message {
@@ -162,8 +95,8 @@
     .asset-library {
 
       h3 {
+        @extend %t-strong;
         margin-bottom: ($baseline*2);
-        font-weight: 600;
       }
 
       table {
@@ -172,7 +105,7 @@
         td.name-col {
 
           a {
-            font-weight: 600;
+            @extend %t-strong;
           }
         }
 
@@ -184,11 +117,7 @@
   }
 
   .button {
-    @extend %ui-btn;
-
-    &.primary-green {
-      @extend %btn-primary-green;
-    }
+    @extend %ui-btn-non;
   }
 
 }

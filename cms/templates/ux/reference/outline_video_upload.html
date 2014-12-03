@@ -8,7 +8,7 @@
 from django.core.urlresolvers import reverse
 %>
 <%block name="title">[template] Course Video Uploads UI</%block>
-<%block name="bodyclass">is-signedin course view-uploads view-video-upload</%block>
+<%block name="bodyclass">is-signedin course view-uploads view-video-uploads</%block>
 
 <%block name="content">
 
@@ -57,12 +57,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-001">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-001"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-remove"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -70,12 +64,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-002">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar bar-error">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="51" aria-describedby="video-upload-002"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-retry"><i class="icon icon-rotate-left"></i><span class="sr">Retry</span></button>
-                </div>
                 <div class="status-message">
                   <p class="text error">Upload failed</p>
                 </div>
@@ -85,12 +73,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-003">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar bar-success">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="100" aria-describedby="video-upload-003"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-delete"><i class="icon icon-trash"></i><span class="sr">Remove</span></button>
-                </div>
                 <div class="status-message">
                   <p class="text success"><i class="icon icon-ok"></i> Complete!</p>
                 </div>
@@ -100,12 +82,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-004">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-004"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-cancel"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -113,12 +89,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-005">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-005"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-cancel"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -126,12 +96,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-006">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-006"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-cancel"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -139,12 +103,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-007">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-007"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-cancel"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -152,12 +110,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-008">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-008"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-cancel"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -165,12 +117,6 @@ from django.core.urlresolvers import reverse
             <li class="video-upload-item">
               <div class="video-detail-wrapper">
                 <h4 class="video-detail-title" id="video-upload-009">Something random that's supposed to be uploading</h4>
-                <div class="video-detail-progress-bar">
-                  <progress class="upload-progress-bar" role="progressbar" max="100" value="37" aria-describedby="video-upload-009"></progress>
-                </div>
-                <div class="video-actions">
-                  <button type="button" class="action-button action-cancel"><i class="icon icon-remove"></i><span class="sr">Cancel</span></button>
-                </div>
                 <div class="status-message"></div>
               </div>
             </li>
@@ -188,6 +134,7 @@ from django.core.urlresolvers import reverse
         <section class="assets-wrapper">
           <div class="asset-library">
             <h3>Previous Uploads</h3>
+            ## <a href="#" class="button">Download CSV</a>
             <table>
               <caption class="sr">List of uploaded files and assets in this course</caption>
               <thead>
@@ -306,6 +253,19 @@ from django.core.urlresolvers import reverse
 
     return false;
   };
+
+  jQuery(document).ready(function($) {
+    $('button[aria-haspopup="true"]').on('click', function(e) {
+      e.preventDefault();
+      console.log('clicked');
+
+      if ($(this).next('#' + $(this).attr('aria-owns')).hasClass('is-opened')) {
+        $(this).next('#' + $(this).attr('aria-owns')).removeClass('is-opened');
+      } else {
+        $(this).next('#' + $(this).attr('aria-owns')).addClass('is-opened');
+      }
+    });
+  });
   </script>
 
 </%block>
