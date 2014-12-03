@@ -76,7 +76,7 @@ define(
                                     realProp.apply(this, arguments);
                                 }
                             });
-                            this.view.$(".js-file-input").change()
+                            this.view.$(".js-file-input").change();
                             this.request = mostRecentAjaxRequest();
                         });
 
