@@ -201,30 +201,7 @@ class XModuleMixin(XBlockMixin):
         # XBlock, and it has an xmodule_runtime defined, then we're in
         # an XModule context, not an XModuleDescriptor context,
         # so we should use the xmodule_runtime (ModuleSystem) as the runtime.
-        #
-        # If this code always returns a PureSystem() irregardless of having a self.xmodule_runtime,
-        # the exception and traceback below occur:
-        #
-        #   File "/edx/app/edxapp/edx-platform/lms/djangoapps/courseware/views.py", line 326, in index
-        #     return _index_bulk_op(request, user, course_key, chapter, section, position)
-        #   File "/edx/app/edxapp/edx-platform/lms/djangoapps/courseware/views.py", line 348, in _index_bulk_op
-        #     course_key, user, course, depth=2)
-        #   File "/edx/app/edxapp/edx-platform/lms/djangoapps/courseware/model_data.py", line 114, in cache_for_descriptor_descendents
-        #     descriptors = get_child_descriptors(descriptor, depth, descriptor_filter)
-        #   File "/edx/app/edxapp/edx-platform/lms/djangoapps/courseware/model_data.py", line 108, in get_child_descriptors
-        #     for child in descriptor.get_children() + descriptor.get_required_module_descriptors():
-        #   File "/edx/app/edxapp/edx-platform/common/lib/xmodule/xmodule/x_module.py", line 337, in get_children
-        #     child = self.runtime.get_block(child_loc)
-        #   File "/edx/app/edxapp/edx-platform/common/lib/xmodule/xmodule/x_module.py", line 1399, in get_block
-        #     return self.get_module(self.descriptor_runtime.get_block(block_id))
-        #   File "/edx/app/edxapp/edx-platform/common/lib/xmodule/xmodule/x_module.py", line 1435, in __getattr__
-        #     return getattr(self._descriptor_system, name)
-        # AttributeError: 'CachingDescriptorSystem' object has no attribute 'get_module'
-
-        if self.xmodule_runtime is not None:
-            return PureSystem(self.xmodule_runtime, self._runtime)
-        else:
-            return self._runtime
+        return PureSystem(self.xmodule_runtime, self._runtime)
 
     @runtime.setter
     def runtime(self, value):
@@ -1424,7 +1401,7 @@ class ModuleSystem(MetricsMixin, ConfigurableFragmentWrapper, Runtime):  # pylin
         pass
 
 
-class PureSystem(ModuleSystem, DescriptorSystem):
+class PureSystem(object):
     """
     A subclass of both ModuleSystem and DescriptorSystem to provide pure (non-XModule) XBlocks
     a single Runtime interface for both the ModuleSystem and DescriptorSystem, when available.
@@ -1436,11 +1413,13 @@ class PureSystem(ModuleSystem, DescriptorSystem):
     #
     # pylint: disable=abstract-method
     def __init__(self, module_system, descriptor_system):
+        # These attributes are set directly to __dict__ below to avoid a recursion in getattr/setattr.
+        #
         # N.B. This doesn't call super(PureSystem, self).__init__, because it is only inheriting from
         # ModuleSystem and DescriptorSystem to pass isinstance checks.
         # pylint: disable=super-init-not-called
-        self._module_system = module_system
-        self._descriptor_system = descriptor_system
+        self.__dict__["_module_system"] = module_system
+        self.__dict__["_descriptor_system"] = descriptor_system
 
     def __getattr__(self, name):
         """
@@ -1452,6 +1431,15 @@ class PureSystem(ModuleSystem, DescriptorSystem):
             return getattr(self._module_system, name)
         except AttributeError:
             return getattr(self._descriptor_system, name)
+
+    def __setattr__(self, name, value):
+        """
+        If the ModuleSystem is set, set the attr on it.
+        Always set the attr on the DescriptorSystem.
+        """
+        if self._module_system:
+            setattr(self._module_system, name, value)
+        setattr(self._descriptor_system, name, value)
 
 
 class DoNothingCache(object):
