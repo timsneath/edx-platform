@@ -74,6 +74,15 @@ def split_by_comma_and_whitespace(a_str):
     return re.split(r'[\s,]', a_str)
 
 
+def null_get_asides(block):  # pylint: disable=unused-arguments
+    """
+    get_aside method for monkey-patching into descriptor_global_get_asides
+    while rendering an HtmlDescriptor for email text editing. This returns
+    an empty list.
+    """
+    return []
+
+
 @ensure_csrf_cookie
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
 def instructor_dashboard(request, course_id):
