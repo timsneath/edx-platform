@@ -1,7 +1,7 @@
-"use strict";
 define(
     ["jquery", "underscore", "backbone", "js/views/previous_video_upload_list"],
     function($, _, Backbone, PreviousVideoUploadListView) {
+        "use strict";
         describe("PreviousVideoUploadListView", function() {
             var previousVideoUploadTpl = readFixtures("previous-video-upload.underscore");
             var previousVideoUploadListTpl = readFixtures("previous-video-upload-list.underscore");

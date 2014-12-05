@@ -1,17 +1,38 @@
-"use strict";
 define(
-    ["i18n", "js/views/baseview"],
-    function(i18n, BaseView) {
+    ["i18n", "js/utils/date_utils", "js/views/baseview"],
+    function(i18n, DateUtils, BaseView) {
+        "use strict";
+
+        var statusDisplayStrings = {
+            // Translators: This is the status of an active video upload
+            UPLOADING: i18n.gettext("Uploading"),
+            // Translators: This is the status for a video that the servers
+            // are currently processing
+            IN_PROGRESS: i18n.gettext("In Progress"),
+            // Translators: This is the status for a video that the servers
+            // have successfully processed
+            COMPLETE: i18n.gettext("Complete"),
+            // Translators: This is the status for a video that the servers
+            // have failed to process
+            FAILED: i18n.gettext("Failed"),
+            // Translators: This is the status for a video for which an invalid
+            // processing token was provided in the course settings
+            INVALID_TOKEN: i18n.gettext("Invalid Token"),
+            // Translators: This is the status for a video that is in an unknown
+            // state
+            UNKNOWN: i18n.gettext("Unknown")
+        };
+
         var statusMap = {
-            "upload": i18n.gettext("Uploading"),
-            "ingest": i18n.gettext("In Progress"),
-            "transcode_queue": i18n.gettext("In Progress"),
-            "transcode_active": i18n.gettext("In Progress"),
-            "file_delivered": i18n.gettext("Complete"),
-            "file_complete": i18n.gettext("Complete"),
-            "file_corrupt": i18n.gettext("Failed"),
-            "pipeline_error": i18n.gettext("Failed"),
-            "invalid_token": i18n.gettext("Invalid Token")
+            "upload": statusDisplayStrings.UPLOADING,
+            "ingest": statusDisplayStrings.IN_PROGRESS,
+            "transcode_queue": statusDisplayStrings.IN_PROGRESS,
+            "transcode_active": statusDisplayStrings.IN_PROGRESS,
+            "file_delivered": statusDisplayStrings.COMPLETE,
+            "file_complete": statusDisplayStrings.COMPLETE,
+            "file_corrupt": statusDisplayStrings.FAILED,
+            "pipeline_error": statusDisplayStrings.FAILED,
+            "invalid_token": statusDisplayStrings.INVALID_TOKEN
         };
 
         var PreviousVideoUploadView = BaseView.extend({
@@ -31,16 +52,12 @@ define(
             render: function() {
                 var duration = this.model.get("duration");
                 var renderedAttributes = {
-                    // Translators: This is listed as the duration for a video that has not yet
-                    // gotten far enough in the pipeline to have had its duration determined.
+                    // Translators: This is listed as the duration for a video
+                    // that has not yet reached the point in its processing by
+                    // the servers where its duration is determined.
                     duration: duration > 0 ? this.renderDuration(duration) : i18n.gettext("Pending"),
-                    created: Date.parse(this.model.get("created")).toLocaleString(
-                        [],
-                        {timeZone: "UTC", timeZoneName: "short"}
-                    ),
-                    // Translators: This is the status label for a video upload with a status
-                    // that is not known.
-                    status: statusMap[this.model.get("status")] || i18n.gettext("Unknown")
+                    created: DateUtils.renderDate(this.model.get("created")),
+                    status: statusMap[this.model.get("status")] || statusDisplayStrings.UNKNOWN
                 };
                 this.$el.html(
                     this.template(_.extend({}, this.model.attributes, renderedAttributes))

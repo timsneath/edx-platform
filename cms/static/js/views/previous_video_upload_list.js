@@ -1,7 +1,7 @@
-"use strict";
 define(
     ["jquery", "underscore", "backbone", "js/views/baseview", "js/views/previous_video_upload"],
     function($, _, Backbone, BaseView, PreviousVideoUploadView) {
+        "use strict";
         var PreviousVideoUploadListView = BaseView.extend({
             tagName: "section",
             className: "assets-wrapper",
