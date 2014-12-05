@@ -44,7 +44,7 @@
         padding: (flex-gutter() - 1.6);
         vertical-align: top;
 
-        .video-detail-wrapper {
+        .wrapper-video-detail {
           min-height: ($baseline*4);
           padding: ($baseline/2);
           border: 1px solid $gray-l3;
@@ -74,7 +74,7 @@
 
       .video-upload-item:hover, .video-upload-item:focus {
 
-        .video-detail-wrapper {
+        .wrapper-video-detail {
           @include transition(all $tmg-f3);
           background: $white;
 
@@ -93,6 +93,7 @@
     margin-top: ($baseline*2.5);
 
     .asset-library {
+      @include @clearfix();
 
       h3 {
         @extend %t-strong;
