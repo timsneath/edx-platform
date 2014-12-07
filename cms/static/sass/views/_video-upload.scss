@@ -93,7 +93,7 @@
     margin-top: ($baseline*2.5);
 
     .asset-library {
-      @include @clearfix();
+      @include clearfix();
 
       h3 {
         @extend %t-strong;
