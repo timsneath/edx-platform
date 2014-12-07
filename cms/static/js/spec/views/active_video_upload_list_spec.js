@@ -1,7 +1,7 @@
-"use strict";
 define(
     ["jquery", "js/models/active_video_upload", "js/views/active_video_upload_list", "mock-ajax", "jasmine-jquery"],
     function($, ActiveVideoUpload, ActiveVideoUploadListView) {
+        "use strict";
         var concurrentUploadLimit = 2;
         var activeVideoUploadTpl = readFixtures("active-video-upload.underscore");
         var activeVideoUploadListTpl = readFixtures("active-video-upload-list.underscore");

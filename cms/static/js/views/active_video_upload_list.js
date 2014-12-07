@@ -28,7 +28,6 @@ define(
                 this.$dropZone = this.$uploadForm.find(".file-drop-area");
                 this.$uploadForm.fileupload({
                     type: "PUT",
-                    autoUpload: true,
                     singleFileUploads: false,
                     limitConcurrentUploads: this.concurrentUploadLimit,
                     dropZone: this.$dropZone,
@@ -38,6 +37,15 @@ define(
                     done: this.fileUploadDone.bind(this),
                     fail: this.fileUploadFail.bind(this)
                 });
+
+                // Disable default drag and drop behavior for the window (which
+                // is to load the file in place)
+                var preventDefault = function(event) {
+                    event.preventDefault();
+                };
+                $(window).on("dragover", preventDefault);
+                $(window).on("drop", preventDefault);
+
                 return this;
             },
 
@@ -76,7 +84,7 @@ define(
                     uploadData.submit();
                 } else {
                     $.ajax({
-                        url: view.postUrl,
+                        url: this.postUrl,
                         contentType: "application/json",
                         data: JSON.stringify({
                             files: _.map(
@@ -105,16 +113,20 @@ define(
                 }
             },
 
+            setStatus: function(cid, status) {
+                this.collection.get(cid).set("status", status);
+            },
+
             fileUploadSend: function(event, data) {
-                this.collection.get(data.cid).set("status", ActiveVideoUpload.STATUS_UPLOADING);
+                this.setStatus(data.cid, ActiveVideoUpload.STATUS_UPLOADING);
             },
 
             fileUploadDone: function(event, data) {
-                this.collection.get(data.cid).set("status", ActiveVideoUpload.STATUS_COMPLETED);
+                this.setStatus(data.cid, ActiveVideoUpload.STATUS_COMPLETED);
             },
 
             fileUploadFail: function(event, data) {
-                this.collection.get(data.cid).set("status", ActiveVideoUpload.STATUS_FAILED);
+                this.setStatus(data.cid, ActiveVideoUpload.STATUS_FAILED);
             }
         });
 
