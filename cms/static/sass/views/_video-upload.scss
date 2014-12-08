@@ -65,31 +65,6 @@
     }
   }
 
-  .assets-wrapper {
-    margin-top: ($baseline*2.5);
-
-    .asset-library {
-      @include clearfix();
-
-      h3 {
-        @extend %t-strong;
-        margin-bottom: ($baseline*2);
-      }
-
-      table {
-        font-size: 80%;
-
-        td.name-col {
-          @extend %t-strong;
-        }
-
-        td.status-col {
-          text-transform: uppercase;
-        }
-      }
-    }
-  }
-
   .button {
     @extend %ui-btn-non;
   }
