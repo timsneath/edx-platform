@@ -7,8 +7,8 @@ define(
             tagName: "div",
             events: {
                 "click .file-drop-area": "chooseFile",
-                "dragleave .file-drop": "dragleave",
-                "drop .file-drop": "dragleave"
+                "dragleave .file-drop-area": "dragleave",
+                "drop .file-drop-area": "dragleave"
             },
 
             initialize: function(options) {
@@ -24,7 +24,7 @@ define(
 
             render: function() {
                 this.$el.html(this.template());
-                this.$uploadForm = this.$(".file-drop-upload-form");
+                this.$uploadForm = this.$(".file-upload-form");
                 this.$dropZone = this.$uploadForm.find(".file-drop-area");
                 this.$uploadForm.fileupload({
                     type: "PUT",
@@ -51,7 +51,7 @@ define(
 
             renderUpload: function(model) {
                 var itemView = new ActiveVideoUploadView({model: model});
-                this.$(".video-upload-progress-list").append(itemView.render().$el);
+                this.$(".active-video-upload-list").append(itemView.render().$el);
             },
 
             chooseFile: function(event) {
@@ -61,12 +61,12 @@ define(
 
             dragover: function(event) {
                 event.preventDefault();
-                this.$(".file-drop").addClass("is-dropped"); 
+                this.$dropZone.addClass("is-dragged");
             },
 
             dragleave: function(event) {
                 event.preventDefault();
-                this.$(".file-drop").removeClass("is-dropped");
+                this.$dropZone.removeClass("is-dragged");
             },
 
             // Each file is ultimately sent to a separate URL, but we want to make a

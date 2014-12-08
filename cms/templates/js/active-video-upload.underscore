@@ -1,6 +1,2 @@
-<div class="wrapper-video-detail">
-    <h4 class="video-detail-title"><%- fileName %></h4>
-    <div class="status-message">
-        <p class="text"><%- gettext(status) %></p>
-    </div>
-</div>
+<h4 class="video-detail-name"><%- fileName %></h4>
+<p class="video-detail-status"><%- gettext(status) %></p>

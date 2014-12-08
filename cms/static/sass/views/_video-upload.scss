@@ -1,89 +1,65 @@
 .view-video-uploads {
 
-  .file-drop {
+  .file-upload-form {
     @include clearfix();
     margin-bottom: ($baseline*1.5);
-    border: 2px dashed $gray-l3;
-    border-radius: ($baseline/5);
-    background: $white;
+    width: 100%;
 
-    .file-drop-upload-form {
-      display: inline-block;
-      width: 100%;
-      vertical-align: middle;
+    .file-drop-area {
+      border: 2px dashed $gray-l3;
+      border-radius: ($baseline/5);
+      padding: ($baseline*3);
+      background: $white;
+      text-align: center;
 
-      .file-drop-area {
-        padding: ($baseline*3);
-        text-align: center;
+      &:hover,
+      &.is-dragged {
+        background: $blue-l5;
+        border-style: solid;
+        border-color: $blue-l4;
       }
-    }
-
-    &:hover, 
-    &.is-dropped {
-      background: $blue-l5;
-      border-style: solid;
-      border-color: $blue-l4;
-    }
-
-    &.has-dropped {
-      background: $blue-l4;
-      border-style: solid;
-      border-color: $blue-l3;
     }
   }
 
-  .video-upload-progress-container {
+  .active-video-upload-container {
     margin-bottom: ($baseline*2);
 
-     .video-upload-progress-list {
+    .active-video-upload-list {
       @extend %cont-no-list;
 
-      .video-upload-item {
+      .active-video-upload {
         display: inline-block;
+        min-height: ($baseline*4);
         width: flex-grid(4);
-        padding: (flex-gutter() - 1.6);
+        margin: (flex-gutter() - 1.6);
+        border: 1px solid $gray-l3;
+        border-radius: ($baseline/5);
+        padding: ($baseline/2);
         vertical-align: top;
 
-        .wrapper-video-detail {
-          min-height: ($baseline*4);
-          padding: ($baseline/2);
-          border: 1px solid $gray-l3;
-          border-radius: ($baseline/5);
+        .video-detail-name {
+          @extend %cont-truncated;
+          @extend %t-strong;
+          margin-bottom: ($baseline/2);
+          font-size: 90%;
+        }
 
-          .video-detail-title {
-            @extend %cont-truncated;
-            @extend %t-strong;
-            margin-bottom: ($baseline/2);
-            font-size: 90%;
+        .video-detail-status {
+          @include font-size(12);
+          @include line-height(12);
+
+          .error {
+            color: $color-error;
           }
 
-          .status-message {
-            @include font-size(12);
-            @include line-height(12);
-
-            .error {
-              color: $color-error;
-            }
-
-            .success {
-              color: $color-ready;
-            }
+          .success {
+            color: $color-ready;
           }
         }
-      }
 
-      .video-upload-item:hover, .video-upload-item:focus {
-
-        .wrapper-video-detail {
+        &:hover {
           @include transition(all $tmg-f3);
           background: $white;
-
-          .video-detail-progress-bar {
-
-            progress.upload-progress-bar::-webkit-progress-bar {
-              background: $gray-l5;
-            }
-          }
         }
       }
     }
@@ -104,10 +80,7 @@
         font-size: 80%;
 
         td.name-col {
-
-          a {
-            @extend %t-strong;
-          }
+          @extend %t-strong;
         }
 
         td.status-col {
