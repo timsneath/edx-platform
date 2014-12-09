@@ -2,6 +2,7 @@
 Xml parsing tests for XModules
 """
 import pprint
+from lxml import etree
 from mock import Mock
 from unittest import TestCase
 
@@ -40,9 +41,9 @@ class InMemorySystem(XMLParsingSystem, MakoDescriptorSystem):  # pylint: disable
 
     def process_xml(self, xml):  # pylint: disable=method-hidden
         """Parse `xml` as an XBlock, and add it to `self._descriptors`"""
-        descriptor = create_block_from_xml(
-            xml,
-            self,
+        descriptor = self.xblock_from_node(
+            etree.fromstring(xml),
+            None,
             CourseLocationManager(self.course_id),
         )
         self._descriptors[descriptor.location.to_deprecated_string()] = descriptor

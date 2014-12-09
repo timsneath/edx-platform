@@ -1130,14 +1130,12 @@ def descriptor_global_local_resource_url(block, uri):  # pylint: disable=invalid
     raise NotImplementedError("Applications must monkey-patch this function before using local_resource_url for studio_view")
 
 
-# This function exists to give applications (LMS/CMS) a place to monkey-patch until
-# we can refactor modulestore to split out the FieldData half of its interface from
-# the Runtime part of its interface. This function matches the Runtime.get_asides interface
-def descriptor_global_get_asides(block):  # pylint: disable=unused-argument
+def descriptor_global_applicable_aside_types(block):
     """
-    See :meth:`xblock.runtime.Runtime.get_asides`.
+    See :meth:`xblock.runtime.Runtime.applicable_aside_types`.
     """
-    raise NotImplementedError("Applications must monkey-patch this function before using get_asides from a DescriptorSystem.")
+    raise NotImplementedError("Applications must monkey-patch this function before using applicable_aside_types"
+                              " from a DescriptorSystem.")
 
 
 class MetricsMixin(object):
@@ -1314,18 +1312,18 @@ class DescriptorSystem(MetricsMixin, ConfigurableFragmentWrapper, Runtime):  # p
             # global function that the application can override.
             return descriptor_global_local_resource_url(block, uri)
 
-    def get_asides(self, block):
+    def applicable_aside_types(self, block):
         """
-        See :meth:`xblock.runtime.Runtime:get_asides` for documentation.
+        See :meth:`xblock.runtime.Runtime:applicable_aside_types` for documentation.
         """
         if getattr(block, 'xmodule_runtime', None) is not None:
-            return block.xmodule_runtime.get_asides(block)
+            return block.xmodule_runtime.applicable_aside_types(block)
         else:
             # Currently, Modulestore is responsible for instantiating DescriptorSystems
             # This means that LMS/CMS don't have a way to define a subclass of DescriptorSystem
             # that implements the correct get_asides. So, for now, instead, we will reference a
             # global function that the application can override.
-            return descriptor_global_get_asides(block)
+            return descriptor_global_applicable_aside_types(block)
 
     def resource_url(self, resource):
         """

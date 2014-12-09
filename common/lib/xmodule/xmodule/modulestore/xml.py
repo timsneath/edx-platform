@@ -34,6 +34,8 @@ from .exceptions import ItemNotFoundError
 from .inheritance import compute_inherited_metadata, inheriting_field_data
 
 from xblock.fields import ScopeIds, Reference, ReferenceList, ReferenceValueDict
+from xblock.core import XBlockAside
+from xmodule.xml_module import is_pointer_tag
 
 edx_xml_parser = etree.XMLParser(dtd_validation=False, load_dtd=False,
                                  remove_comments=True, remove_blank_text=True)
@@ -171,9 +173,9 @@ class ImportSystem(XMLParsingSystem, MakoDescriptorSystem):
 
                 make_name_unique(xml_data)
 
-                descriptor = create_block_from_xml(
-                    etree.tostring(xml_data, encoding='unicode'),
-                    self,
+                descriptor = self.xblock_from_node(
+                    xml_data,
+                    None,  # parent_id
                     id_manager,
                 )
             except Exception as err:  # pylint: disable=broad-except
@@ -247,6 +249,74 @@ class ImportSystem(XMLParsingSystem, MakoDescriptorSystem):
         child_block = self.process_xml(etree.tostring(node))
         block.children.append(child_block.scope_ids.usage_id)
 
+    def _usage_id_from_node(self, node, parent_id, id_generator=None):
+        """Create a new usage id from an XML dom node.
+
+        Args:
+            node (lxml.etree.Element): The DOM node to interpret.
+            parent_id: The usage ID of the parent block
+            id_generator (IdGenerator): The :class:`.IdGenerator` to use
+                for creating ids
+        Returns:
+            UsageKey: the usage key for the new xblock
+        """
+        return self.xblock_from_node(node, parent_id, id_generator).scope_ids.usage_id
+
+    def xblock_from_node(self, node, parent_id, id_generator=None):
+        """
+        Create an XBlock instance from XML data.
+
+        Args:
+            xml_data (string): A string containing valid xml.
+            system (XMLParsingSystem): The :class:`.XMLParsingSystem` used to connect the block
+                to the outside world.
+            id_generator (IdGenerator): An :class:`~xblock.runtime.IdGenerator` that
+                will be used to construct the usage_id and definition_id for the block.
+
+        Returns:
+            XBlock: The fully instantiated :class:`~xblock.core.XBlock`.
+
+        """
+        # very minor differences from XBlock (url_name)
+        id_generator = id_generator or self.id_generator
+        # leave next line commented out - useful for low-level debugging
+        # log.debug('[_usage_id_from_node] tag=%s, class=%s' % (node.tag, xblock_class))
+
+        block_type = node.tag
+        # remove xblock-family from elements
+        node.attrib.pop('xblock-family', None)
+
+        url_name = node.get('url_name')  # only difference from super
+        def_id = id_generator.create_definition(block_type, url_name)
+        usage_id = id_generator.create_usage(def_id)
+
+        keys = ScopeIds(None, block_type, def_id, usage_id)
+        block_class = self.mixologist.mix(self.load_block_type(block_type))
+
+        self.parse_asides(node, def_id, usage_id, id_generator)
+
+        block = block_class.parse_xml(node, self, keys, id_generator)
+        _convert_reference_fields_to_keys(block)
+        block.parent = parent_id
+        block.save()
+
+        return block
+
+    def parse_asides(self, node, def_id, usage_id, id_generator):
+        """pull the asides out of the xml payload and instantiate them"""
+        aside_children = []
+        for child in node.iterchildren():
+            # get xblock-family from node
+            xblock_family = child.attrib.pop('xblock-family', None)
+            if xblock_family:
+                xblock_family = self._family_id_to_superclass(xblock_family)
+                if issubclass(xblock_family, XBlockAside):
+                    aside_children.append(child)
+        # now process them & remove them from the xml payload
+        for child in aside_children:
+            self._aside_from_xml(child, def_id, usage_id, id_generator)
+            node.remove(child)
+
 
 class CourseLocationManager(OpaqueKeyReader, AsideKeyGenerator):
     """
@@ -307,41 +377,6 @@ def _convert_reference_fields_to_keys(xblock):  # pylint: disable=invalid-name
                     assert isinstance(subvalue, basestring)
                     field_value[key] = _make_usage_key(course_key, subvalue)
                 setattr(xblock, field.name, field_value)
-
-
-def create_block_from_xml(xml_data, system, id_generator):
-    """
-    Create an XBlock instance from XML data.
-
-    Args:
-        xml_data (string): A string containing valid xml.
-        system (XMLParsingSystem): The :class:`.XMLParsingSystem` used to connect the block
-            to the outside world.
-        id_generator (IdGenerator): An :class:`~xblock.runtime.IdGenerator` that
-            will be used to construct the usage_id and definition_id for the block.
-
-    Returns:
-        XBlock: The fully instantiated :class:`~xblock.core.XBlock`.
-
-    """
-    node = etree.fromstring(xml_data)
-    raw_class = system.load_block_type(node.tag)
-    xblock_class = system.mixologist.mix(raw_class)
-
-    # leave next line commented out - useful for low-level debugging
-    # log.debug('[create_block_from_xml] tag=%s, class=%s' % (node.tag, xblock_class))
-
-    block_type = node.tag
-    url_name = node.get('url_name')
-    def_id = id_generator.create_definition(block_type, url_name)
-    usage_id = id_generator.create_usage(def_id)
-
-    scope_ids = ScopeIds(None, block_type, def_id, usage_id)
-    xblock = xblock_class.parse_xml(node, system, scope_ids, id_generator)
-
-    _convert_reference_fields_to_keys(xblock)
-
-    return xblock
 
 
 class ParentTracker(object):
