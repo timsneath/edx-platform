@@ -1,4 +1,25 @@
 .view-video-uploads {
+  
+  .content-primary, .content-supplementary {
+    @include box-sizing(border-box);
+  }
+
+  .content-primary {
+    @extend .ui-col-wide;
+  }
+
+  .content-supplementary {
+    @extend .ui-col-narrow;
+  }
+
+  .nav-actions {
+
+    .icon-cloud-upload {
+      @extend %t-copy;
+      vertical-align: bottom;
+      margin-right: ($baseline/5);
+    }
+  }
 
   .file-upload-form {
     @include clearfix();
