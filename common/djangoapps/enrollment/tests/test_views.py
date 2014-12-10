@@ -1,5 +1,5 @@
 """
-Tests for student enrollment.
+Tests for user enrollment.
 """
 import ddt
 from django.contrib.auth.models import User
@@ -28,7 +28,7 @@ MODULESTORE_CONFIG = mixed_store_config(settings.COMMON_TEST_DATA_ROOT, {}, incl
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')
 class EnrollmentTest(ModuleStoreTestCase, APITestCase):
     """
-    Test student enrollment, especially with different course modes.
+    Test user enrollment, especially with different course modes.
     """
     USERNAME = "Bob"
     EMAIL = "bob@example.com"
@@ -80,7 +80,7 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         # Enroll in the course, this will fail if the mode is not explicitly professional.
         resp = self.client.post(reverse(
             'courseenrollment',
-            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+            kwargs={'course_id': (unicode(self.course.id)), 'user': self.user.username}
         ))
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -98,7 +98,7 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         # Try to enroll, this should fail.
         resp = self.client.post(reverse(
             'courseenrollment',
-            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+            kwargs={'course_id': (unicode(self.course.id)), 'user': self.user.username}
         ))
         self.assertEqual(resp.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -125,12 +125,12 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         # Enrollment should succeed, even though we haven't authenticated.
         resp = self.client.post(reverse(
             'courseenrollment',
-            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+            kwargs={'course_id': (unicode(self.course.id)), 'user': self.user.username}
         ))
         self.assertEqual(resp.status_code, 200)
 
     def test_user_does_not_match_url(self):
-        # Try to enroll a student that is not the authenticated user.
+        # Try to enroll a user that is not the authenticated user.
         CourseModeFactory.create(
             course_id=self.course.id,
             mode_slug='honor',
@@ -140,7 +140,7 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         # Enrollment should succeed, even though we haven't authenticated.
         resp = self.client.post(reverse(
             'courseenrollment',
-            kwargs={'course_id': (unicode(self.course.id)), 'student': 'not_the_user'}
+            kwargs={'course_id': (unicode(self.course.id)), 'user': 'not_the_user'}
         ))
         self.assertEqual(resp.status_code, 401)
 
@@ -148,7 +148,7 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         # Create an enrollment
         resp = self.client.post(reverse(
             'courseenrollment',
-            kwargs={'course_id': 'entirely/fake/course', 'student': self.user.username}
+            kwargs={'course_id': 'entirely/fake/course', 'user': self.user.username}
         ))
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -156,7 +156,7 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
         """Enroll in the course and verify the URL we are sent to. """
         resp = self.client.post(reverse(
             'courseenrollment',
-            kwargs={'course_id': (unicode(self.course.id)), 'student': self.user.username}
+            kwargs={'course_id': (unicode(self.course.id)), 'user': self.user.username}
         ))
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = json.loads(resp.content)

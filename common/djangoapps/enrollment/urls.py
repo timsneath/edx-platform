@@ -32,6 +32,6 @@ urlpatterns = patterns(
     url(
         r'^course/{course_key}/details$'.format(course_key=settings.COURSE_ID_PATTERN),
         EnrollmentCourseDetailView.as_view(),
-        name='courseenrollment'
+        name='courseenrollmentdetails'
     ),
 )
