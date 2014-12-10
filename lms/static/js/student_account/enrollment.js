@@ -9,7 +9,7 @@ var edx = edx || {};
     edx.student.account.EnrollmentInterface = {
 
         urls: {
-            course: '/enrollment/v0/course/',
+            course: '/api/enrollment/v0/course/',
             trackSelection: '/course_modes/choose/'
         },
 

@@ -5,7 +5,13 @@ URLs for the Enrollment API
 from django.conf import settings
 from django.conf.urls import patterns, url
 
-from .views import EnrollmentView, EnrollmentListView, EnrollmentListRedirectView, EnrollmentRedirectView
+from .views import (
+    EnrollmentView,
+    EnrollmentListView,
+    EnrollmentListRedirectView,
+    EnrollmentRedirectView,
+    EnrollmentCourseDetailView
+)
 
 urlpatterns = []
 STUDENT_PATTERN = '(?P<student>[\w.+-]+)'
@@ -24,5 +30,10 @@ if settings.FEATURES.get('ENABLE_COMBINED_LOGIN_REGISTRATION'):
             r'^course/{course_key}$'.format(course_key=settings.COURSE_ID_PATTERN),
             EnrollmentRedirectView.as_view(),
             name='courseenrollmentredirect'
+        ),
+        url(
+            r'^course/{course_key}/details$'.format(course_key=settings.COURSE_ID_PATTERN),
+            EnrollmentCourseDetailView.as_view(),
+            name='courseenrollment'
         ),
     )

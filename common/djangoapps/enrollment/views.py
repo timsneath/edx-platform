@@ -67,6 +67,31 @@ class EnrollmentView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+class EnrollmentCourseDetailView(APIView):
+    """ Enrollment API View for viewing course enrollment details. """
+
+    authentication_classes = []
+    permission_classes = []
+    throttle_classes = EnrollmentUserThrottle,
+
+    def get(self, request, course_id=None):
+        """Read enrollment information for a particular course.
+
+        HTTP Endpoint for retrieving course level enrollment information.
+
+        Args:
+            request (Request): To get current course enrollment information, a GET request will return
+                information for the specified course.
+            course_id (str): URI element specifying the course location. Enrollment information will be
+                returned.
+
+        Return:
+            A JSON serialized representation of the course enrollment details.
+
+        """
+        return Response(api.get_course_enrollment_details(course_id))
+
+
 class EnrollmentListView(APIView):
     """ Enrollment API List View for viewing all course enrollments for a student. """
 
