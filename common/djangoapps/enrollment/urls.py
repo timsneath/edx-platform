@@ -14,15 +14,15 @@ from .views import (
 )
 
 urlpatterns = []
-STUDENT_PATTERN = '(?P<student>[\w.+-]+)'
+USER_PATTERN = '(?P<user>[\w.+-]+)'
 
 if settings.FEATURES.get('ENABLE_COMBINED_LOGIN_REGISTRATION'):
     urlpatterns += patterns(
         'enrollment.views',
-        url(r'^student/{student}$'.format(student=STUDENT_PATTERN), EnrollmentListView.as_view(), name='courseenrollments'),
-        url(r'^student$', EnrollmentListRedirectView.as_view(), name='courseenrollmentsredirect'),
+        url(r'^user/{user}$'.format(user=USER_PATTERN), EnrollmentListView.as_view(), name='courseenrollments'),
+        url(r'^user', EnrollmentListRedirectView.as_view(), name='courseenrollmentsredirect'),
         url(
-            r'^student/{student}/course/{course_key}$'.format(course_key=settings.COURSE_ID_PATTERN, student=STUDENT_PATTERN),
+            r'^user/{user}/course/{course_key}$'.format(course_key=settings.COURSE_ID_PATTERN, user=USER_PATTERN),
             EnrollmentView.as_view(),
             name='courseenrollment'
         ),

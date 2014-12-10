@@ -54,7 +54,7 @@ class CourseEnrollmentSerializer(serializers.ModelSerializer):
 
     """
     course = CourseField()
-    student = serializers.SerializerMethodField('get_username')
+    user = serializers.SerializerMethodField('get_username')
 
     def get_username(self, model):
         """Retrieves the username from the associated model."""
@@ -62,7 +62,7 @@ class CourseEnrollmentSerializer(serializers.ModelSerializer):
 
     class Meta:  # pylint: disable=missing-docstring
         model = CourseEnrollment
-        fields = ('created', 'mode', 'is_active', 'course', 'student')
+        fields = ('created', 'mode', 'is_active', 'course', 'user')
         lookup_field = 'username'
 
 
