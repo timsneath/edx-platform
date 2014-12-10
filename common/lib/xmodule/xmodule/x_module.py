@@ -197,15 +197,7 @@ class XModuleMixin(XBlockMixin):
 
     @property
     def runtime(self):
-        # Handle XModule backwards compatibility. If this is a pure
-        # XBlock, and it has an xmodule_runtime defined, then we're in
-        # an XModule context, not an XModuleDescriptor context,
-        # so we should use the xmodule_runtime (ModuleSystem) as the runtime.
-        if (not isinstance(self, (XModule, XModuleDescriptor)) and
-                self.xmodule_runtime is not None):
-            return PureSystem(self.xmodule_runtime, self._runtime)
-        else:
-            return self._runtime
+        return PureSystem(self.xmodule_runtime, self._runtime)
 
     @runtime.setter
     def runtime(self, value):
@@ -1405,10 +1397,12 @@ class ModuleSystem(MetricsMixin, ConfigurableFragmentWrapper, Runtime):  # pylin
         pass
 
 
-class PureSystem(ModuleSystem, DescriptorSystem):
+class PureSystem(object):
     """
-    A subclass of both ModuleSystem and DescriptorSystem to provide pure (non-XModule) XBlocks
-    a single Runtime interface for both the ModuleSystem and DescriptorSystem, when available.
+    A class to provide pure (non-XModule) XBlocks a single Runtime
+    interface for both the ModuleSystem and DescriptorSystem, when
+    available.
+
     """
     # This system doesn't override a number of methods that are provided by ModuleSystem and DescriptorSystem,
     # namely handler_url, local_resource_url, query, and resource_url.
@@ -1417,11 +1411,13 @@ class PureSystem(ModuleSystem, DescriptorSystem):
     #
     # pylint: disable=abstract-method
     def __init__(self, module_system, descriptor_system):
+        # These attributes are set directly to __dict__ below to avoid a recursion in getattr/setattr.
+        #
         # N.B. This doesn't call super(PureSystem, self).__init__, because it is only inheriting from
         # ModuleSystem and DescriptorSystem to pass isinstance checks.
         # pylint: disable=super-init-not-called
-        self._module_system = module_system
-        self._descriptor_system = descriptor_system
+        self.__dict__["_module_system"] = module_system
+        self.__dict__["_descriptor_system"] = descriptor_system
 
     def __getattr__(self, name):
         """
@@ -1433,6 +1429,15 @@ class PureSystem(ModuleSystem, DescriptorSystem):
             return getattr(self._module_system, name)
         except AttributeError:
             return getattr(self._descriptor_system, name)
+
+    def __setattr__(self, name, value):
+        """
+        If the ModuleSystem is set, set the attr on it.
+        Always set the attr on the DescriptorSystem.
+        """
+        if self._module_system:
+            setattr(self._module_system, name, value)
+        setattr(self._descriptor_system, name, value)
 
 
 class DoNothingCache(object):
