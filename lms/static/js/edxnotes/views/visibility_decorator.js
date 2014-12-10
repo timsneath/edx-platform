@@ -3,8 +3,8 @@
 define([
     'jquery', 'underscore', 'js/edxnotes/views/notes_factory'
 ], function($, _, NotesFactory) {
-    var parameters = {}, visibility = null,
-        getIds, createNote, cleanup, factory;
+    var parameters = {}, visibility = null, urlHash = null,
+        getIds, createNote, cleanup, notesLoaded, factory;
 
         getIds = function () {
             return _.map($('.edx-notes-wrapper'), function (element) {
@@ -26,12 +26,32 @@ define([
             _.each(list, function (instance) {
                 var id = instance.element.attr('id');
                 if (!_.contains(ids, id)) {
+                    instance.unsubscribe("annotationsLoaded", notesLoaded);
                     instance.destroy();
                 }
             });
         };
 
-        factory = function (element, params, isVisible) {
+        notesLoaded = function (notes) {
+            var highlight, offset, event;
+            if (!_.isEmpty(notes)) {
+                _.each(notes, function (note) {
+                    if (note.id === urlHash) {
+                        highlight = $('span.annotator-hl:contains('+note.quote+')');
+                        $('html, body').animate({scrollTop: highlight.offset().top}, 'slow');
+                        offset = highlight.offset();
+                        event = $.Event('mouseover', {
+                            pageX: offset.left,
+                            pageY: offset.top
+                        });
+                        highlight.trigger(event);
+                    }
+                });
+            }
+        };
+
+        factory = function (element, params, isVisible, hash) {
+            var note;
             // When switching sequentials, we need to keep track of the
             // parameters of each element and the visibility (that may have been
             // changed by the checkbox).
@@ -48,7 +68,12 @@ define([
                 // but keep those found on page being loaded (for the case when
                 // there are more than one HTMLcomponent per vertical).
                 cleanup(getIds());
-                return createNote(element, params);
+                note = createNote(element, params);
+                if (hash) {
+                    urlHash = hash;
+                    note.subscribe("annotationsLoaded", notesLoaded);
+                }
+                return note;
             }
             return null;
         };
