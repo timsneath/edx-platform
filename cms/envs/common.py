@@ -555,8 +555,8 @@ YOUTUBE = {
 ############################# VIDEO UPLOAD PIPELINE #############################
 
 VIDEO_UPLOAD_PIPELINE = {
-    'BUCKET': 'edx-sandbox-test',
-    'ROOT_PATH': 'edx-videos',
+    'BUCKET': '',
+    'ROOT_PATH': '',
     'CONCURRENT_UPLOAD_LIMIT': 4,
 }
 
