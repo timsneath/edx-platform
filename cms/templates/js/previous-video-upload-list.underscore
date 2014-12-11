@@ -1,13 +1,13 @@
-<div class="asset-library">
-    <h3>Previous Uploads</h3>
-    <table>
+<div class="assets-library">
+    <h3 class="assets-title"><%- gettext("Previous Uploads") %></h3>
+    <table class="assets-table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Duration</th>
-                <th>Date Added</th>
-                <th>Video ID</th>
-                <th>Status</th>
+                <th><%- gettext("Name") %></th>
+                <th><%- gettext("Duration") %></th>
+                <th><%- gettext("Date Added") %></th>
+                <th><%- gettext("Video ID") %></th>
+                <th><%- gettext("Status") %></th>
             </tr>
         </thead>
         <tbody class="js-table-body"></tbody>

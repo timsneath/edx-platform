@@ -69,11 +69,11 @@
           @include font-size(12);
           @include line-height(12);
 
-          .error {
+          &.error {
             color: $color-error;
           }
 
-          .success {
+          &.success {
             color: $color-ready;
           }
         }

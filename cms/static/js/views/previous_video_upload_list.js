@@ -4,19 +4,21 @@ define(
         "use strict";
         var PreviousVideoUploadListView = BaseView.extend({
             tagName: "section",
-            className: "assets-wrapper",
+            className: "wrapper-assets",
 
             initialize: function() {
                 this.template = this.loadTemplate("previous-video-upload-list");
+                this.itemViews = this.collection.map(function(model) {
+                    return new PreviousVideoUploadView({model: model});
+                });
             },
 
             render: function() {
                 var $el = this.$el;
                 $el.html(this.template());
                 var $tabBody = $el.find(".js-table-body");
-                this.collection.each(function(model) {
-                    var itemView = new PreviousVideoUploadView({model: model});
-                    $tabBody.append(itemView.render().$el);
+                _.each(this.itemViews, function(view) {
+                    $tabBody.append(view.render().$el);
                 });
                 return this;
             },

@@ -26,7 +26,7 @@ define(
             it("should render video name correctly", function() {
                 var testName = "test name";
                 var $el = render({client_video_id: testName});
-                expect($el.find(".title-col").text()).toEqual(testName);
+                expect($el.find(".name-col").text()).toEqual(testName);
             });
 
             _.each(
@@ -42,7 +42,7 @@ define(
                 function(caseInfo) {
                     it("should render duration " + caseInfo.desc, function() {
                         var $el = render({duration: caseInfo.seconds});
-                        expect($el.find(".size-col").text()).toEqual(caseInfo.expected);
+                        expect($el.find(".duration-col").text()).toEqual(caseInfo.expected);
                     });
                 }
             );
@@ -64,7 +64,7 @@ define(
             it("should render video id correctly", function() {
                 var testId = "test_id";
                 var $el = render({edx_video_id: testId});
-                expect($el.find(".embed-col").text()).toEqual(testId);
+                expect($el.find(".video-id-col").text()).toEqual(testId);
             });
 
             _.each(
@@ -83,7 +83,7 @@ define(
                 function(caseInfo) {
                     it("should render " + caseInfo.status + " status correctly", function() {
                         var $el = render({status: caseInfo.status});
-                        expect($el.find(".actions-col").text()).toEqual(caseInfo.expected);
+                        expect($el.find(".status-col").text()).toEqual(caseInfo.expected);
                     });
                 }
             );

@@ -108,14 +108,14 @@ define(
                                             fileNames,
                                             function(fileName) {
                                                 return {
-                                                    "file-name": fileName,
-                                                    "upload-url": makeUploadUrl(fileName)
+                                                    "file_name": fileName,
+                                                    "upload_url": makeUploadUrl(fileName)
                                                 };
                                             }
                                         )
                                     })
                                 });
-                                this.$uploadElems = this.view.$(".video-upload-item");
+                                this.$uploadElems = this.view.$(".active-video-upload");
                             });
 
                             it("should start uploads", function() {
@@ -140,10 +140,10 @@ define(
                                 expect(this.$uploadElems.length).toEqual(caseInfo.numFiles);
                                 this.$uploadElems.each(function(i, uploadElem) {
                                     var $uploadElem = $(uploadElem);
-                                    expect($.trim($uploadElem.find(".video-detail-title").text())).toEqual(
+                                    expect($.trim($uploadElem.find(".video-detail-name").text())).toEqual(
                                         fileNames[i]
                                     );
-                                    expect($.trim($uploadElem.find(".status-message").text())).toEqual(
+                                    expect($.trim($uploadElem.find(".video-detail-status").text())).toEqual(
                                         i >= concurrentUploadLimit ?
                                             ActiveVideoUpload.STATUS_QUEUED :
                                             ActiveVideoUpload.STATUS_UPLOADING
@@ -177,9 +177,9 @@ define(
                                         });
 
                                         it("should update status", function() {
-                                            var $uploadElem = $(".video-upload-item:first");
+                                            var $uploadElem = $(".active-video-upload:first");
                                             expect($uploadElem.length).toEqual(1);
-                                            expect($.trim($uploadElem.find(".status-message").text())).toEqual(
+                                            expect($.trim($uploadElem.find(".video-detail-status").text())).toEqual(
                                                 subCaseInfo.statusText
                                             );
                                             expect($uploadElem.find(subCaseInfo.presentSelector)).toExist();
@@ -196,7 +196,7 @@ define(
                                                     concurrentUploadLimit + 1
                                                 );
                                                 var $uploadElem = $(this.$uploadElems[concurrentUploadLimit]);
-                                                expect($.trim($uploadElem.find(".status-message").text())).toEqual(
+                                                expect($.trim($uploadElem.find(".video-detail-status").text())).toEqual(
                                                     ActiveVideoUpload.STATUS_UPLOADING
                                                 );
                                             });

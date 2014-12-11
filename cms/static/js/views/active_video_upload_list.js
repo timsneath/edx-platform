@@ -14,7 +14,8 @@ define(
             initialize: function(options) {
                 this.template = this.loadTemplate("active-video-upload-list");
                 this.collection = new Backbone.Collection();
-                this.listenTo(this.collection, "add", this.renderUpload);
+                this.itemViews = [];
+                this.listenTo(this.collection, "add", this.addUpload);
                 this.concurrentUploadLimit = options.concurrentUploadLimit || 0;
                 this.postUrl = options.postUrl;
                 if (options.uploadButton) {
@@ -24,6 +25,7 @@ define(
 
             render: function() {
                 this.$el.html(this.template());
+                _.each(this.itemViews, this.renderUploadView.bind(this));
                 this.$uploadForm = this.$(".file-upload-form");
                 this.$dropZone = this.$uploadForm.find(".file-drop-area");
                 this.$uploadForm.fileupload({
@@ -49,9 +51,14 @@ define(
                 return this;
             },
 
-            renderUpload: function(model) {
+            addUpload: function(model) {
                 var itemView = new ActiveVideoUploadView({model: model});
-                this.$(".active-video-upload-list").append(itemView.render().$el);
+                this.itemViews.push(itemView);
+                this.renderUploadView(itemView);
+            },
+
+            renderUploadView: function(view) {
+                this.$(".active-video-upload-list").append(view.render().$el);
             },
 
             chooseFile: function(event) {
@@ -102,7 +109,7 @@ define(
                             function(file, index) {
                                 view.$uploadForm.fileupload("add", {
                                     files: [uploadData.files[index]],
-                                    url: file["upload-url"],
+                                    url: file["upload_url"],
                                     multipart: false,
                                     global: false,  // Do not trigger global AJAX error handler
                                     redirected: true

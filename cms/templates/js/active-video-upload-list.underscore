@@ -1,6 +1,3 @@
-<%
-    // TODO: Add screen-reader text
-%>
 <form class="file-upload-form">
     <div class="file-drop-area">
         <%- gettext("Drag and drop or click here to upload video files.") %>

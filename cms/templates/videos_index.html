@@ -1,15 +1,11 @@
 <%inherit file="base.html" />
-## TODO: make online help resolve correctly
-<%def name="online_help_token()"><% return "videos" %></%def>
 <%!
   import json
   from django.core.serializers.json import DjangoJSONEncoder
-  from django.core.urlresolvers import reverse
   from django.utils.translation import ugettext as _
 %>
 <%block name="title">${_("Video Uploads")}</%block>
 <%block name="bodyclass">is-signedin course view-uploads view-video-uploads</%block>
-
 
 <%namespace name='static' file='static_content.html'/>
 
@@ -22,21 +18,17 @@
 </%block>
 
 <%block name="requirejs">
-    require(
-        ["jquery", "backbone", "js/views/active_video_upload_list", "js/views/previous_video_upload_list"],
-        function ($, Backbone, ActiveVideoUploadListView, PreviousVideoUploadListView) {
-            $contentWrapper = $(".content-primary");
-            activeView = new ActiveVideoUploadListView({
-                postUrl: "${post_url}",
-                concurrentUploadLimit: ${concurrent_upload_limit},
-                uploadButton: $(".nav-actions .upload-button")
-            });
-            $contentWrapper.append(activeView.render().$el);
-            var previousCollection = new Backbone.Collection($contentWrapper.data("previous-uploads"));
-            previousView = new PreviousVideoUploadListView({collection: previousCollection});
-            $contentWrapper.append(previousView.render().$el);
-        }
-    );
+    require(["js/factories/videos_index"], function (VideosIndexFactory) {
+        "use strict";
+        var $contentWrapper = $(".content-primary");
+        VideosIndexFactory(
+            $contentWrapper,
+            "${post_url}",
+            ${concurrent_upload_limit},
+            $(".nav-actions .upload-button"),
+            $contentWrapper.data("previous-uploads")
+        );
+    });
 </%block>
 
 <%block name="content">
@@ -78,23 +70,4 @@
     </section>
 </div>
 
-
-</%block>
-
-<%block name="view_alerts">
-<!-- alert: save confirmed with close -->
-<div class="wrapper wrapper-alert wrapper-alert-confirmation" role="status">
-    <div class="alert confirmation">
-        <i class="icon-ok"></i>
-
-        <div class="copy">
-            <h2 class="title title-3">${_('Your file has been deleted.')}</h2>
-        </div>
-
-        <a href="" rel="view" class="action action-alert-close">
-            <i class="icon-remove-sign"></i>
-            <span class="label">${_('close alert')}</span>
-        </a>
-    </div>
-</div>
 </%block>
