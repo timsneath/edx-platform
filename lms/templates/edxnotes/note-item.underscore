@@ -1,7 +1,8 @@
 <div class="wrapper-note-excerpts">
     <% if (message) { %>
         <div class="note-excerpt">
-        <p class="note-excerpt-p"><%= message %>
+        <p class="note-excerpt-p">
+            <%= message %>
         <% if (show_link) { %>
             <% if (is_expanded) { %>
                 <a href="#" class="note-excerpt-more-link"><%- gettext('(Show less)') %></a>
