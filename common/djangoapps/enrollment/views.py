@@ -7,12 +7,13 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import RedirectView, View
 from rest_framework import status
-from rest_framework.authentication import OAuth2Authentication, SessionAuthentication
+from rest_framework.authentication import OAuth2Authentication
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
 from enrollment import api
+from enrollment.utils import paginate
 from student.models import NonExistentCourseError, CourseEnrollmentException
 from util.authentication import SessionAuthenticationAllowInactiveUser
 
@@ -99,6 +100,7 @@ class EnrollmentListView(APIView):
     permission_classes = permissions.IsAuthenticated,
     throttle_classes = EnrollmentUserThrottle,
 
+    @paginate
     def get(self, request, user=None):
         """List out all the enrollments for the current user
 
@@ -115,7 +117,7 @@ class EnrollmentListView(APIView):
         if request.user.username != user:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-        return Response(api.get_enrollments(user))
+        return api.get_enrollments(user)
 
 
 class EnrollmentListRedirectView(View):
@@ -128,7 +130,7 @@ class EnrollmentListRedirectView(View):
 
 class EnrollmentRedirectView(RedirectView):
     """Redirect to the EnrollmentView when no user is specified in the URL."""
-
+    # TODO: Support POST operations without the user name. (Drop this view, handle it all in EnrollmentView?
     def get(self, request, *args, **kwargs):
         """Returns the redirect URL with the user's username specified."""
         return redirect(reverse('courseenrollment', args=[request.user.username, kwargs['course_id']]))

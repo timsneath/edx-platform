@@ -2,7 +2,6 @@
 Tests for user enrollment.
 """
 import ddt
-from django.contrib.auth.models import User
 import json
 import unittest
 
@@ -17,6 +16,7 @@ from xmodule.modulestore.tests.django_utils import (
 from xmodule.modulestore.tests.factories import CourseFactory
 from student.tests.factories import UserFactory, CourseModeFactory
 from student.models import CourseEnrollment
+from enrollment import data
 
 # Since we don't need any XML course fixtures, use a modulestore configuration
 # that disables the XML modulestore.
@@ -151,6 +151,37 @@ class EnrollmentTest(ModuleStoreTestCase, APITestCase):
             kwargs={'course_id': 'entirely/fake/course', 'user': self.user.username}
         ))
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_paginated_course_enrollments(self):
+        """Test that we paginate and filter properly across a large number of enrollments"""
+        # Create all the courses
+        created_courses = []
+        course_number = 0
+        while course_number < 30:
+            created_courses.append(CourseFactory.create(number=str(course_number)))
+            course_number += 1
+
+        created_enrollments = []
+        for course in created_courses:
+            # Create the original enrollment.
+            created_enrollments.append(data.create_course_enrollment(
+                self.user.username,
+                unicode(course.id),
+                'honor',
+                True
+            ))
+
+        # Compare the created enrollments with the results
+        # from the get enrollments request.
+        results = self.client.get(reverse(
+            'courseenrollments',
+            kwargs={'user': self.user.username}
+        ))
+        content = json.loads(results.content)
+        self.assertEqual(content['count'], 3)
+        self.assertEqual(len(content['results']), 10)
+        self.assertEqual(content['results'][0]['user'], self.user.username)
+        self.assertEqual(content['results'][0]['course']['course_id'], unicode(created_courses[0].id))
 
     def _create_enrollment(self):
         """Enroll in the course and verify the URL we are sent to. """
