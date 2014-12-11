@@ -29,10 +29,10 @@
             </div>
 
             <section class="wrapper-tabs">
-                <div class="inline-error is-hidden"></div>
                 <div class="tab-list is-hidden">
                     <h2 id="tab-view" class="tabs-label">${_('View notes by:')}</h2>
                 </div>
+                <div class="inline-error is-hidden"></div>
             % if notes:
                 <div class="ui-loading">
                     <p><span class="spin"><i class="icon-refresh"></i></span> <span class="copy">${_("Loading...")}</span></p>
@@ -72,7 +72,7 @@
 
 ## Include Underscore templates
 <%block name="header_extras">
-% for template_name in ["note-item", "tab-item", "note-group", ]:
+% for template_name in ["note-item", "tab-item"]:
 <script type="text/template" id="${template_name}-tpl">
   <%static:include path="edxnotes/${template_name}.underscore" />
 </script>
