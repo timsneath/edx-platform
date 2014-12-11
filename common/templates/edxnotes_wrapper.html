@@ -11,12 +11,7 @@
     (function (require) {
         require(['js/edxnotes/views/visibility_decorator'], function(EdxnotesVisibilityDecorator) {
             var element = document.getElementById('edx-notes-wrapper-${uid}');
-            EdxnotesVisibilityDecorator.factory(
-                element,
-                ${json.dumps(params)},
-                ${edxnotes_visibility},
-                window.location.hash.substr(1)
-            );
+            EdxnotesVisibilityDecorator.factory(element, ${json.dumps(params)}, ${edxnotes_visibility});
         });
     }).call(this, require || RequireJS.require);
 </script>

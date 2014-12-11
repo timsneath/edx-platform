@@ -3,7 +3,7 @@
 define([
     'jquery', 'underscore', 'js/edxnotes/views/notes_factory'
 ], function($, _, NotesFactory) {
-    var parameters = {}, visibility = null, urlHash = null,
+    var parameters = {}, visibility = null,
         getIds, createNote, cleanup, notesLoaded, factory;
 
         getIds = function () {
@@ -33,24 +33,23 @@ define([
         };
 
         notesLoaded = function (notes) {
-            var highlight, offset, event;
-            if (!_.isEmpty(notes)) {
-                _.each(notes, function (note) {
-                    if (note.id === urlHash) {
-                        highlight = $('span.annotator-hl:contains('+note.quote+')');
-                        $('html, body').animate({scrollTop: highlight.offset().top}, 'slow');
-                        offset = highlight.offset();
-                        event = $.Event('mouseover', {
-                            pageX: offset.left,
-                            pageY: offset.top
-                        });
-                        highlight.trigger(event);
-                    }
-                });
-            }
+            var highlight, offset, event, hash = window.location.hash.substr(1);
+
+            _.each(notes, function (note) {
+                if (note.id === hash) {
+                    highlight = $('span.annotator-hl:contains('+note.quote+')');
+                    $('html, body').animate({scrollTop: highlight.offset().top}, 'slow');
+                    offset = highlight.offset();
+                    event = $.Event('click', {
+                        pageX: offset.left,
+                        pageY: offset.top
+                    });
+                    highlight.trigger(event);
+                }
+            });
         };
 
-        factory = function (element, params, isVisible, hash) {
+        factory = function (element, params, isVisible) {
             var note;
             // When switching sequentials, we need to keep track of the
             // parameters of each element and the visibility (that may have been
@@ -69,8 +68,10 @@ define([
                 // there are more than one HTMLcomponent per vertical).
                 cleanup(getIds());
                 note = createNote(element, params);
-                if (hash) {
-                    urlHash = hash;
+                // If the page URL contains a hash, we could be coming from a
+                // click on an anchor in the notes page. In that case, the hash
+                // is the id of the note that has to be scrolled to and opened.
+                if (window.location.hash.substr(1)) {
                     note.subscribe("annotationsLoaded", notesLoaded);
                 }
                 return note;
