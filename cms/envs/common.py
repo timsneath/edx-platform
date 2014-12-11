@@ -290,7 +290,11 @@ SERVER_EMAIL = 'devops@example.com'
 ADMINS = ()
 MANAGERS = ADMINS
 
-EDX_PLATFORM_REVISION = os.environ.get('EDX_PLATFORM_REVISION', git.revision)
+EDX_PLATFORM_REVISION = os.environ.get('EDX_PLATFORM_REVISION')
+
+if not EDX_PLATFORM_REVISION:
+    EDX_PLATFORM_REVISION = git.revision
+
 # Static content
 STATIC_URL = '/static/' + EDX_PLATFORM_REVISION + "/"
 STATIC_ROOT = ENV_ROOT / "staticfiles" / EDX_PLATFORM_REVISION
