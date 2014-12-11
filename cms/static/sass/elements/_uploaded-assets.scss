@@ -1,11 +1,11 @@
 .wrapper-assets {
-  margin-top: ($baseline*2.5);
 
   .assets-library {
     @include clearfix();
 
     .assets-title {
       @extend %t-strong;
+      margin-top: ($baseline*2);
       margin-bottom: ($baseline*2);
     }
 
