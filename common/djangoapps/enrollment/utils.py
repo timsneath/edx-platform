@@ -2,6 +2,7 @@
 from django.core.paginator import Paginator
 from rest_framework.response import Response
 from rest_framework.templatetags.rest_framework import replace_query_param
+from django.conf import settings
 
 
 def paginate(func):
@@ -20,7 +21,11 @@ def paginate(func):
             return ret
 
         page_num = int(request.GET.get('page', 1))
-        page_size = request.GET.get('page_size', 10)  # TODO preferences for page, page_size
+        paginate_by_param = getattr(settings.REST_FRAMEWORK, 'PAGINATE_BY_PARAM', 'page_size')
+        page_size = request.GET.get(paginate_by_param, getattr(settings.REST_FRAMEWORK, 'PAGINATE_BY', 10))
+        max_page_size = getattr(settings.REST_FRAMEWORK, 'MAX_PAGINATE_BY', 100)
+        page_size = page_size if page_size > max_page_size else max_page_size
+
         paginator = Paginator(ret, page_size)
 
         # Ensure the minimum page is one, maximum is the last page.

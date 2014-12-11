@@ -48,6 +48,8 @@ class EnrollmentView(APIView):
             A JSON serialized representation of the course enrollment.
 
         """
+        if user is None:
+            return redirect(reverse('courseenrollment', args=[request.user.username, course_id]))
         if request.user.username != user:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         try:
@@ -57,6 +59,7 @@ class EnrollmentView(APIView):
 
     def post(self, request, course_id=None, user=None):
         """Create a new enrollment"""
+        user = user if user else request.user.username
         if user != request.user.username:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -127,10 +130,10 @@ class EnrollmentListRedirectView(View):
         """Returns the redirect URL with the user's username specified."""
         return redirect(reverse('courseenrollments', args=[request.user.username]))
 
-
-class EnrollmentRedirectView(RedirectView):
-    """Redirect to the EnrollmentView when no user is specified in the URL."""
-    # TODO: Support POST operations without the user name. (Drop this view, handle it all in EnrollmentView?
-    def get(self, request, *args, **kwargs):
-        """Returns the redirect URL with the user's username specified."""
-        return redirect(reverse('courseenrollment', args=[request.user.username, kwargs['course_id']]))
+#
+# class EnrollmentRedirectView(RedirectView):
+#     """Redirect to the EnrollmentView when no user is specified in the URL."""
+#     # TODO: Support POST operations without the user name. (Drop this view, handle it all in EnrollmentView?
+#     def get(self, request, *args, **kwargs):
+#         """Returns the redirect URL with the user's username specified."""
+#         return redirect(reverse('courseenrollment', args=[request.user.username, kwargs['course_id']]))

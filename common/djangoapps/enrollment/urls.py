@@ -9,7 +9,6 @@ from .views import (
     EnrollmentView,
     EnrollmentListView,
     EnrollmentListRedirectView,
-    EnrollmentRedirectView,
     EnrollmentCourseDetailView
 )
 
@@ -34,7 +33,7 @@ urlpatterns = patterns(
     url(r'^user', EnrollmentListRedirectView.as_view(), name='courseenrollmentsredirect'),
     url(
         r'^course/{course_key}$'.format(course_key=settings.COURSE_ID_PATTERN),
-        EnrollmentRedirectView.as_view(),
+        EnrollmentView.as_view(),
         name='courseenrollmentredirect'
     ),
 )
