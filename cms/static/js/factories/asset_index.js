@@ -7,7 +7,7 @@ define([
             assetsView;
 
         assets.url = assetCallbackUrl;
-        assetsView = new AssetsView({collection: assets, el: $('.assets-wrapper')});
+        assetsView = new AssetsView({collection: assets, el: $('.wrapper-assets')}); // Class name should match template
         assetsView.render();
     };
 });
