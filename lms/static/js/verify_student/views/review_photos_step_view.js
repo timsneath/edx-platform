@@ -3,7 +3,7 @@
  */
 var edx = edx || {};
 
-(function( $ ) {
+(function( $, gettext ) {
     'use strict';
 
     edx.verify_student = edx.verify_student || {};
@@ -29,14 +29,7 @@ var edx = edx || {};
             $( '#retake_photos_button' ).click( _.bind( this.retakePhotos, this ) );
 
             // When moving to the next step, submit photos for verification
-            $( "#next_step_button" ).click( _.bind( this.submitPhotos, this ) );
-
-            // TODO: Use edx.utils.validate
-            $( '#new-name-button' ).click( function() {
-                model.set({
-                    fullName: $( '#new-name' ).val()
-                });
-            });
+            $( '#next_step_button' ).click( _.bind( this.submitPhotos, this ) );
         },
 
         toggleSubmitEnabled: function() {
@@ -58,17 +51,30 @@ var edx = edx || {};
             this.listenToOnce( this.model, 'error', _.bind( this.handleSubmissionError, this ) );
 
             // Submit
+            this.model.set( 'fullName', $( '#new-name' ).val() );
             this.model.save();
         },
 
-        handleSubmissionError: function() {
+        handleSubmissionError: function( xhr ) {
             // Re-enable the submit button to allow the user to retry
             var isConfirmChecked = $( "#confirm_pics_good" ).prop('checked');
             $( "#next_step_button" ).toggleClass( "is-disabled", !isConfirmChecked );
 
             // Display the error
-            // TODO
-            console.log("Photo submission error!");
+            if ( xhr.status === 400 ) {
+                this.errorModel.set({
+                    errorTitle: gettext( 'Could not submit photos' ),
+                    errorMsg: xhr.responseText,
+                    shown: true
+                });
+            }
+            else {
+                this.errorModel.set({
+                    errorTitle: gettext( 'Could not submit photos' ),
+                    errorMsg: gettext( 'An unexpected error occurred.  Please try again later.' ),
+                    shown: true
+                });
+            }
         },
 
         // This should be done with pure CSS
@@ -88,4 +94,4 @@ var edx = edx || {};
         }
     });
 
-})( jQuery );
+})( jQuery, gettext );

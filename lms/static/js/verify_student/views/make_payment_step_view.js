@@ -3,7 +3,7 @@
  */
 var edx = edx || {};
 
-(function( $, _ ) {
+(function( $, _, gettext ) {
     'use strict';
 
     edx.verify_student = edx.verify_student || {};
@@ -79,11 +79,19 @@ var edx = edx || {};
 
         handleCreateOrderError: function( xhr ) {
             if ( xhr.status === 400 ) {
-                $( "#order-error .copy p" ).html( xhr.responseText );
+                this.errorModel.set({
+                    errorTitle: gettext( 'Could not submit order' ),
+                    errorMsg: xhr.responseText,
+                    shown: true
+                });
             }
-
-            $( "#order-error" ).show();
-            $( "html, body" ).animate({ scrollTop: 0 });
+            else {
+                this.errorModel.set({
+                    errorTitle: gettext( 'Could not submit order' ),
+                    errorMsg: gettext( 'An unexpected error occurred.  Please try again' ),
+                    shown: true
+                });
+            }
 
             // Re-enable the button so the user can re-try
             $( "#payment-processor-form" ).removeClass("is-disabled");
@@ -102,4 +110,4 @@ var edx = edx || {};
 
     });
 
-})( jQuery, _ );
+})( jQuery, _, gettext );

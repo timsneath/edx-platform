@@ -27,6 +27,7 @@ var edx = edx || {};
         ],
 
         initialize: function( obj ) {
+            this.errorModel = obj.errorModel || {};
             this.displaySteps = obj.displaySteps || [];
             this.initializeSubviews( obj.currentStep, obj.stepInfo );
         },
@@ -88,6 +89,7 @@ var edx = edx || {};
                     }
 
                     subviewConfig = {
+                        errorModel: this.errorModel,
                         templateUrl: this.displaySteps[i].templateUrl,
                         nextStepNum: (i + 2), // Next index, starting from 1
                         nextStepTitle: nextStepTitle,
@@ -104,9 +106,6 @@ var edx = edx || {};
                     // so this doesn't trigger GET requests or modify
                     // the DOM.
                     this.subviews[stepName] = new subviewConstructors[stepName]( subviewConfig );
-
-                    // For photo verification steps, set the model
-                    // to the shared photo model.
 
                     // Listen for events to change the current step
                     this.listenTo( this.subviews[stepName], 'next-step', this.nextStep );

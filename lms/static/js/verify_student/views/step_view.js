@@ -17,7 +17,7 @@
  */
  var edx = edx || {};
 
- (function( $, _, _s, Backbone ) {
+ (function( $, _, _s, Backbone, gettext ) {
     'use strict';
 
     edx.verify_student = edx.verify_student || {};
@@ -25,6 +25,7 @@
     edx.verify_student.StepView = Backbone.View.extend({
 
         initialize: function( obj ) {
+            this.errorModel = obj.errorModel || {};
             this.templateUrl = obj.templateUrl || "";
             this.stepData = obj.stepData || {};
             this.nextStepNum = obj.nextStepNum || "";
@@ -39,13 +40,13 @@
         },
 
         render: function() {
-            // TODO: handle failure condition
             if ( !this.renderedHtml && this.templateUrl) {
                 $.ajax({
                     url: this.templateUrl,
                     type: 'GET',
                     context: this,
-                    success: this.handleResponse
+                    success: this.handleResponse,
+                    error: this.handleError
                 });
             }
             else {
@@ -71,6 +72,14 @@
             this.postRender();
         },
 
+        handleError: function() {
+            this.errorModel.set({
+                errorTitle: gettext("Error"),
+                errorMsg: gettext("An unexpected error occurred.  Please reload the page to try again."),
+                shown: true
+            });
+        },
+
         postRender: function() {
             // Sub-classes can override this method
             // to install custom event handlers.
@@ -86,4 +95,4 @@
 
     });
 
- })( jQuery, _, _.str, Backbone );
+ })( jQuery, _, _.str, Backbone, gettext );

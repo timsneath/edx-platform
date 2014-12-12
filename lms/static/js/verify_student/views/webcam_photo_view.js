@@ -64,9 +64,10 @@
                 },
 
                 getUserMediaCallback: function( stream ) {
+                    var video = this.getVideo();
                     this.stream = stream;
-                    this.getVideo().src = this.URL.createObjectURL( stream );
-                    this.getVideo().play();
+                    video.src = this.URL.createObjectURL( stream );
+                    video.play();
                 },
 
                 getVideo: function() {
@@ -147,14 +148,12 @@
         initialize: function( obj ) {
             this.submitButton = obj.submitButton || "";
             this.modelAttribute = obj.modelAttribute || "";
-            //this.backend = this.chooseVideoCaptureBackend();
-            this.backend = this.videoCaptureBackend.flash;
+            this.backend = this.chooseVideoCaptureBackend();
 
             if ( !this.backend ) {
                 // TODO -- actual error
                 console.log("No video backend available");
             }
-
         },
 
         render: function() {
@@ -226,7 +225,6 @@
                 }
             }
         }
-
     });
 
  })( jQuery, _, Backbone );

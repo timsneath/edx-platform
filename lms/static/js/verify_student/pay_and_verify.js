@@ -12,9 +12,15 @@ var edx = edx || {};
 
 (function($) {
     'use strict';
-    var el = $('#pay-and-verify-container');
+    var errorView,
+        el = $('#pay-and-verify-container');
 
     edx.verify_student = edx.verify_student || {};
+
+    // Initialize an error view for displaying top-level error messages.
+    errorView = new edx.verify_student.ErrorView({
+        el: $('#error-container')
+    });
 
     // Initialize the base view, passing in information
     // from the data attributes on the parent div.
@@ -25,6 +31,7 @@ var edx = edx || {};
     // and some messaging.
     //
     return new edx.verify_student.PayAndVerifyView({
+        errorModel: errorView.model,
         displaySteps: el.data('display-steps'),
         currentStep: el.data('current-step'),
         stepInfo: {
