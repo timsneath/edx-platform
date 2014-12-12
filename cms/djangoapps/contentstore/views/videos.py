@@ -7,7 +7,6 @@ from uuid import uuid4
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
-from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_http_methods
 
 from edxval.api import create_video, get_videos_for_ids
