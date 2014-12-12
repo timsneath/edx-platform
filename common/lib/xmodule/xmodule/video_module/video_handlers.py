@@ -300,7 +300,14 @@ class VideoStudioViewHandlers(object):
 
             if request.method == 'POST':
                 subtitles = request.POST['file']
-                save_to_store(subtitles.file.read(), unicode(subtitles.filename), 'application/x-subrip', self.location)
+                try:
+                    file_data = subtitles.file.read()
+                    unicode(file_data, "utf-8", "strict")
+                except UnicodeDecodeError:
+                    msg = "Invalid encoding type for file: {}".format(subtitles.filename)
+                    log.info(msg)
+                    return Response(msg, status=400)
+                save_to_store(file_data, unicode(subtitles.filename), 'application/x-subrip', self.location)
                 generate_sjson_for_all_speeds(self, unicode(subtitles.filename), {}, language)
                 response = {'filename': unicode(subtitles.filename), 'status': 'Success'}
                 return Response(json.dumps(response), status=201)
