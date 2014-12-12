@@ -826,7 +826,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
         )
         self._assert_messaging(response, PayAndVerifyView.FIRST_TIME_VERIFY_MSG)
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.PHOTO_ID_REQ,
             PayAndVerifyView.WEBCAM_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
@@ -881,7 +880,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
         )
         self._assert_messaging(response, PayAndVerifyView.FIRST_TIME_VERIFY_MSG)
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
         ])
 
@@ -917,7 +915,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
             PayAndVerifyView.INTRO_STEP
         )
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
         ])
 
@@ -936,7 +933,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
             PayAndVerifyView.INTRO_STEP
         )
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
         ])
 
@@ -976,7 +972,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
         # These will be hidden from the user anyway since they're starting
         # after the payment step.
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.PHOTO_ID_REQ,
             PayAndVerifyView.WEBCAM_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
@@ -1080,7 +1075,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
         # after the payment step.  We're already including the payment
         # steps, so it's easier to include these as well.
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.PHOTO_ID_REQ,
             PayAndVerifyView.WEBCAM_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
@@ -1178,7 +1172,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
         )
         self._assert_messaging(response, PayAndVerifyView.UPGRADE_MSG)
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.PHOTO_ID_REQ,
             PayAndVerifyView.WEBCAM_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
@@ -1197,7 +1190,6 @@ class TestPayAndVerifyView(UrlResetMixin, ModuleStoreTestCase):
         )
         self._assert_messaging(response, PayAndVerifyView.UPGRADE_MSG)
         self._assert_requirements_displayed(response, [
-            PayAndVerifyView.PRE_REQ,
             PayAndVerifyView.CREDIT_CARD_REQ,
         ])
 

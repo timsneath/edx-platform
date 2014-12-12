@@ -227,7 +227,6 @@ class PayAndVerifyView(View):
     # a third-party payment processor), then the user
     # will resume the flow at an intermediate step.
     #
-    PRE_REQ_STEP = 'pre-req-step'
     INTRO_STEP = 'intro-step'
     MAKE_PAYMENT_STEP = 'make-payment-step'
     PAYMENT_CONFIRMATION_STEP = 'payment-confirmation-step'
@@ -237,7 +236,6 @@ class PayAndVerifyView(View):
     ENROLLMENT_CONFIRMATION_STEP = 'enrollment-confirmation-step'
 
     ALL_STEPS = [
-        PRE_REQ_STEP,
         INTRO_STEP,
         MAKE_PAYMENT_STEP,
         PAYMENT_CONFIRMATION_STEP,
@@ -278,10 +276,6 @@ class PayAndVerifyView(View):
     )
 
     STEP_INFO = {
-        PRE_REQ_STEP: Step(
-            title=ugettext_lazy("Pre Requirements"),
-            template_name="verify_student/pre_req_step.underscore"
-        ),
         INTRO_STEP: Step(
             title=ugettext_lazy("Intro"),
             template_name="verify_student/intro_step.underscore"
@@ -320,7 +314,6 @@ class PayAndVerifyView(View):
     # slightly different copy than users who are verifying
     # for the first time.
     #
-    PRE_REQ_MSG = 'pre-req'
     FIRST_TIME_VERIFY_MSG = 'first-time-verify'
     VERIFY_NOW_MSG = 'verify-now'
     VERIFY_LATER_MSG = 'verify-later'
@@ -386,7 +379,6 @@ class PayAndVerifyView(View):
     # need to complete the verification steps,
     # then the photo ID and webcam requirements are hidden.
     #
-    PRE_REQ = "pre-requirements"
     PHOTO_ID_REQ = "photo-id-required"
     WEBCAM_REQ = "webcam-required"
     CREDIT_CARD_REQ = "credit-card-required"
@@ -394,7 +386,7 @@ class PayAndVerifyView(View):
     STEP_REQUIREMENTS = {
         ID_PHOTO_STEP: [PHOTO_ID_REQ, WEBCAM_REQ],
         FACE_PHOTO_STEP: [WEBCAM_REQ],
-        MAKE_PAYMENT_STEP: [CREDIT_CARD_REQ, PRE_REQ],
+        MAKE_PAYMENT_STEP: [CREDIT_CARD_REQ],
     }
 
     @method_decorator(login_required)
@@ -445,7 +437,6 @@ class PayAndVerifyView(View):
         # with a paid course mode (such as "verified").
         # For this reason, every paid user is enrolled, but not
         # every enrolled user is paid.
-        already_active = request.user.is_active
         already_verified = self._check_already_verified(request.user)
         already_paid, is_enrolled = self._check_enrollment(request.user, course_key)
 
@@ -463,20 +454,16 @@ class PayAndVerifyView(View):
             return redirect_response
 
         display_steps = self._display_steps(
-            already_active,
             always_show_payment,
             already_verified,
             already_paid
         )
         requirements = self._requirements(display_steps)
 
-        if not already_active:
-            current_step = self.PRE_REQ_STEP
-
         # Allow the caller to skip the first page
         # This is useful if we want the user to be able to
         # use the "back" button to return to the previous step.
-        if request.GET.get('skip-first-step'):
+        if request.GET.get('skip-first-step') and request.user.is_active:
             display_step_names = [step['name'] for step in display_steps]
             current_step_idx = display_step_names.index(current_step)
             if (current_step_idx + 1) < len(display_steps):
@@ -498,6 +485,7 @@ class PayAndVerifyView(View):
             'current_step': current_step,
             'disable_courseware_js': True,
             'display_steps': display_steps,
+            'is_active': request.user.is_active,
             'messages': self._messages(
                 message,
                 course.display_name,
@@ -581,14 +569,13 @@ class PayAndVerifyView(View):
         if url is not None:
             return redirect(url)
 
-    def _display_steps(self, already_active, always_show_payment, already_verified, already_paid):
+    def _display_steps(self, always_show_payment, already_verified, already_paid):
         """Determine which steps to display to the user.
 
         Includes all steps by default, but removes steps
         if the user has already completed them.
 
         Arguments:
-            already_active (bool): If False, display the activate account step.
 
             always_show_payment (bool): If True, display the payment steps
                 even if the user has already paid.
@@ -605,8 +592,6 @@ class PayAndVerifyView(View):
         """
         display_steps = self.ALL_STEPS
         remove_steps = set()
-        if already_active:
-            remove_steps |= set(self.PRE_REQ_STEP)
 
         if already_verified:
             remove_steps |= set(self.VERIFICATION_STEPS)
@@ -662,7 +647,6 @@ class PayAndVerifyView(View):
 
         """
         all_requirements = {
-            self.PRE_REQ: False,
             self.PHOTO_ID_REQ: False,
             self.WEBCAM_REQ: False,
             self.CREDIT_CARD_REQ: False

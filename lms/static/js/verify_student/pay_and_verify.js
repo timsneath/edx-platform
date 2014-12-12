@@ -28,15 +28,11 @@ var edx = edx || {};
         displaySteps: el.data('display-steps'),
         currentStep: el.data('current-step'),
         stepInfo: {
-            'pre-req-step': {
+            'intro-step': {
+                isActive: el.data('is-active'),
                 introTitle: el.data('intro-title'),
                 introMsg: el.data('intro-msg'),
                 platformName: el.data('platform-name'),
-                requirements: el.data('requirements')
-            },
-            'intro-step': {
-                introTitle: el.data('intro-title'),
-                introMsg: el.data('intro-msg'),
                 requirements: el.data('requirements')
             },
             'make-payment-step': {
