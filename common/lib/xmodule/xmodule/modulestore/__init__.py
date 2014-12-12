@@ -36,6 +36,7 @@ log = logging.getLogger('edx.modulestore')
 new_contract('CourseKey', CourseKey)
 new_contract('AssetKey', AssetKey)
 new_contract('AssetMetadata', AssetMetadata)
+new_contract('SortedListWithKey', SortedListWithKey)
 
 
 class ModuleStoreEnum(object):
@@ -279,14 +280,22 @@ class ModuleStoreAssetInterface(object):
     """
     The methods for accessing assets and their metadata
     """
-    def _find_course_assets(self, course_key):
+    @contract(asset_list='SortedListWithKey', asset_id='AssetKey')
+    def _find_asset_in_list(self, asset_list, asset_id):
         """
-        Finds the persisted repr of the asset metadata not converted to AssetMetadata yet.
-        Returns the container holding a dict indexed by asset block_type whose values are a list
-        of raw metadata documents
+        Given a asset list that's a SortedListWithKey, find the index of a particular asset.
+        Returns: Index of asset, if found. None if not found.
         """
-        log.warning("_find_course_assets request of ModuleStoreAssetInterface - not implemented.")
-        return None
+        # See if this asset already exists by checking the external_filename.
+        # Studio doesn't currently support using multiple course assets with the same filename.
+        # So use the filename as the unique identifier.
+        idx = None
+        idx_left = asset_list.bisect_left({'filename': asset_id.path})
+        idx_right = asset_list.bisect_right({'filename': asset_id.path})
+        if idx_left != idx_right:
+            # Asset was found in the list.
+            idx = idx_left
+        return idx
 
     def _find_course_asset(self, asset_key):
         """
@@ -297,26 +306,16 @@ class ModuleStoreAssetInterface(object):
             asset_key (AssetKey): what to look for
 
         Returns:
-            AssetMetadata[] for all assets of the given asset_key's type, & the index of asset in list
-            (None if asset does not exist)
+            Tuple of:
+            - AssetMetadata[] for all assets of the given asset_key's type
+            - the index of asset in list (None if asset does not exist)
         """
         course_assets = self._find_course_assets(asset_key.course_key)
-        if course_assets is None:
-            return None, None
-
         all_assets = SortedListWithKey([], key=itemgetter('filename'))
         # Assets should be pre-sorted, so add them efficiently without sorting.
         # extend() will raise a ValueError if the passed-in list is not sorted.
         all_assets.extend(course_assets.setdefault(asset_key.block_type, []))
-        # See if this asset already exists by checking the external_filename.
-        # Studio doesn't currently support using multiple course assets with the same filename.
-        # So use the filename as the unique identifier.
-        idx = None
-        idx_left = all_assets.bisect_left({'filename': asset_key.block_id})
-        idx_right = all_assets.bisect_right({'filename': asset_key.block_id})
-        if idx_left != idx_right:
-            # Asset was found in the list.
-            idx = idx_left
+        idx = self._find_asset_in_list(all_assets, asset_key)
 
         return course_assets, idx
 
@@ -363,10 +362,6 @@ class ModuleStoreAssetInterface(object):
             List of AssetMetadata objects.
         """
         course_assets = self._find_course_assets(course_key)
-        if course_assets is None:
-            # If no course assets are found, return None instead of empty list
-            # to distinguish zero assets from "not able to retrieve assets".
-            return None
 
         # Determine the proper sort - with defaults of ('displayname', SortOrder.ascending).
         key_func = itemgetter('filename')
@@ -380,11 +375,11 @@ class ModuleStoreAssetInterface(object):
         if asset_type is None:
             # Add assets of all types to the sorted list.
             all_assets = SortedListWithKey([], key=key_func)
-            for asset_type in course_assets.iterkeys():
+            for asset_type, val in course_assets.iteritems():
                 # '_id' is sometimes added to the course_assets for CRUD purposes
                 # (depending on the modulestore). If it's present, skip it.
                 if asset_type != '_id':
-                    all_assets.update(course_assets[asset_type])
+                    all_assets.update(val)
         else:
             # Add assets of a single type to the sorted list.
             all_assets = SortedListWithKey(course_assets.get(asset_type, []), key=key_func)

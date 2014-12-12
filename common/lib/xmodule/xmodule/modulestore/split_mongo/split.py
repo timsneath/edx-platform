@@ -2259,7 +2259,7 @@ class SplitMongoModuleStore(SplitBulkWriteMixin, ModuleStoreWriteBase):
     def save_asset_metadata_list(self, asset_metadata_list, user_id, import_only=False):
         """
         A wrapper for functions wanting to manipulate assets. Gets and versions the structure,
-        passes the mutable array for either 'assets' or 'thumbnails' as well as the idx to the function for it to
+        passes the mutable array for all asset types as well as the idx to the function for it to
         update, then persists the changed data back into the course.
 
         The update function can raise an exception if it doesn't want to actually do the commit. The
@@ -2385,7 +2385,7 @@ class SplitMongoModuleStore(SplitBulkWriteMixin, ModuleStoreWriteBase):
             index_entry = self._get_index_if_valid(dest_course_key)
             new_structure = self.version_structure(dest_course_key, original_structure, user_id)
 
-            new_structure['assets'] = source_structure.get('assets', [])
+            new_structure['assets'] = source_structure.get('assets', {})
             new_structure['thumbnails'] = source_structure.get('thumbnails', [])
 
             # update index if appropriate and structures

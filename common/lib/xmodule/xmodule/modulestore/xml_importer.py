@@ -26,7 +26,6 @@ import mimetypes
 from path import path
 import json
 import re
-from contracts import contract, new_contract
 from lxml import etree
 
 from .xml import XMLModuleStore, ImportSystem, ParentTracker
@@ -49,8 +48,6 @@ from xmodule.modulestore.store_utilities import draft_node_constructor, get_draf
 
 
 log = logging.getLogger(__name__)
-
-new_contract('file', file)
 
 
 def import_static_content(
@@ -294,49 +291,6 @@ def import_from_xml(
     return new_courses
 
 
-@contract(filename='basestring', f='file')
-def _read_xml(filename, f):
-    """
-    Takes a file object, reads the file bytes, and ensures that its contents are text.
-    Returns the file contents.
-    """
-    contents = None
-    # note, on local dev it seems like OSX will put
-    # some extra files in the directory with "quarantine"
-    # information. These files are binary files and will
-    # throw exceptions when we try to parse the file
-    # as an XML string. Let's make sure we're
-    # dealing with a string before ingesting
-    data = f.read()
-
-    try:
-        contents = data.decode('utf-8')
-    except UnicodeDecodeError, err:
-        # seems like on OSX localdev, the OS is making
-        # quarantine files in the unzip directory
-        # when importing courses so if we blindly try to
-        # enumerate through the directory, we'll try
-        # to process a bunch of binary quarantine files
-        # (which are prefixed with a '._' character which
-        # will dump a bunch of exceptions to the output,
-        # although they are harmless.
-        #
-        # Reading online docs there doesn't seem to be
-        # a good means to detect a 'hidden' file that works
-        # well across all OS environments. So for now, I'm using
-        # OSX's utilization of a leading '.' in the filename
-        # to indicate a system hidden file.
-        #
-        # Better yet would be a way to figure out if this is
-        # a binary file, but I haven't found a good way
-        # to do this yet.
-        if filename.startswith('._'):
-            return None
-        # Not a 'hidden file', then re-raise exception
-        raise err
-    return contents
-
-
 def _import_course_asset_metadata(store, data_dir, course_id, raise_on_failure):
     """
     Read in assets XML file, parse it, and add all asset metadata to the modulestore.
@@ -360,9 +314,7 @@ def _import_course_asset_metadata(store, data_dir, course_id, raise_on_failure):
 
     all_assets = []
     try:
-        with open(asset_xml_file, "r") as f:
-            xml_contents = _read_xml(assets_filename, f)
-        xml_data = etree.fromstring(xml_contents)
+        xml_data = etree.parse(asset_xml_file).getroot()
         assert(xml_data.tag == AssetMetadata.ALL_ASSETS_XML_TAG)
         for asset in xml_data.iterchildren():
             if asset.tag == AssetMetadata.ASSET_XML_TAG:
@@ -649,9 +601,39 @@ def _import_course_draft(
             module_path = os.path.join(dirname, filename)
             with open(module_path, 'r') as f:
                 try:
-                    xml = _read_xml(filename, f)
-                    if xml is None:
-                        continue
+                    # note, on local dev it seems like OSX will put
+                    # some extra files in the directory with "quarantine"
+                    # information. These files are binary files and will
+                    # throw exceptions when we try to parse the file
+                    # as an XML string. Let's make sure we're
+                    # dealing with a string before ingesting
+                    data = f.read()
+
+                    try:
+                        xml = data.decode('utf-8')
+                    except UnicodeDecodeError, err:
+                        # seems like on OSX localdev, the OS is making
+                        # quarantine files in the unzip directory
+                        # when importing courses so if we blindly try to
+                        # enumerate through the directory, we'll try
+                        # to process a bunch of binary quarantine files
+                        # (which are prefixed with a '._' character which
+                        # will dump a bunch of exceptions to the output,
+                        # although they are harmless.
+                        #
+                        # Reading online docs there doesn't seem to be
+                        # a good means to detect a 'hidden' file that works
+                        # well across all OS environments. So for now, I'm using
+                        # OSX's utilization of a leading '.' in the filename
+                        # to indicate a system hidden file.
+                        #
+                        # Better yet would be a way to figure out if this is
+                        # a binary file, but I haven't found a good way
+                        # to do this yet.
+                        if filename.startswith('._'):
+                            continue
+                        # Not a 'hidden file', then re-raise exception
+                        raise err
 
                     # process_xml call below recursively processes all descendants. If
                     # we call this on all verticals in a course with verticals nested below

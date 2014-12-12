@@ -56,7 +56,6 @@ log = logging.getLogger(__name__)
 new_contract('CourseKey', CourseKey)
 new_contract('AssetKey', AssetKey)
 new_contract('AssetMetadata', AssetMetadata)
-new_contract('SortedListWithKey', SortedListWithKey)
 
 # sort order that returns DRAFT items first
 SORT_REVISION_FAVOR_DRAFT = ('_id.revision', pymongo.DESCENDING)
@@ -1480,11 +1479,15 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
             {'course_id': unicode(course_key)},
         )
 
-        # Pass back 'assets' dict but add the '_id' key to it for document update purposes.
         if course_assets is None:
-            # Not found, so create.
-            course_assets = {'course_id': unicode(course_key), 'assets': {}}
-            course_assets['assets']['_id'] = self.asset_collection.insert(course_assets)
+            # Check to see if the course is created in the course collection.
+            if self.get_course(course_key) is None:
+                raise ItemNotFoundError(course_key)
+            else:
+                # Course exists, so create matching assets document.
+                course_assets = {'course_id': unicode(course_key), 'assets': {}}
+                # Pass back 'assets' dict but add the '_id' key to it for document update purposes.
+                course_assets['assets']['_id'] = self.asset_collection.insert(course_assets)
         elif isinstance(course_assets['assets'], list):
             # This record is in the old course assets format.
             # Ensure that no data exists before updating the format.
@@ -1506,17 +1509,6 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
         """
         return 'assets.{}'.format(asset_type)
 
-    @contract(asset_list='SortedListWithKey', asset_id='AssetKey')
-    def _find_asset_in_list(self, asset_list, asset_id):
-        """
-        Given a asset list that's a SortedListWithKey, find the index of a particular asset.
-        Returns: Index of asset, if found. None if not found.
-        """
-        for idx, asset in enumerate(asset_list):
-            if asset['filename'] == asset_id.path:
-                return idx
-        return None
-
     @contract(asset_metadata_list='list(AssetMetadata)', user_id=int)
     def _save_asset_metadata_list(self, asset_metadata_list, user_id, import_only):
         """
@@ -1526,13 +1518,8 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
             asset_metadata_list (list(AssetMetadata)): list of data about several course assets
             user_id (int): user ID saving the asset metadata
             import_only (bool): True if edited_on/by data should remain unchanged.
-
-        Returns:
-            True if info save was successful, else False
         """
         course_assets = self._find_course_assets(asset_metadata_list[0].asset_id.course_key)
-        if course_assets is None:
-            return False
 
         changed_asset_types = set()
         assets_by_type = {}
@@ -1540,7 +1527,7 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
             asset_type = asset_md.asset_id.asset_type
             changed_asset_types.add(asset_type)
             # Lazily create a sorted list if not already created.
-            if not asset_type in assets_by_type:
+            if asset_type not in assets_by_type:
                 assets_by_type[asset_type] = SortedListWithKey(course_assets.get(asset_type, []), key=itemgetter('filename'))
             all_assets = assets_by_type[asset_type]
             asset_idx = self._find_asset_in_list(assets_by_type[asset_type], asset_md.asset_id)
@@ -1687,8 +1674,12 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
         """
         # Using the course_id, find the course asset metadata document.
         # A single document exists per course to store the course asset metadata.
-        course_assets = self._find_course_assets(course_key)
-        self.asset_collection.remove(course_assets['_id'])
+        try:
+            course_assets = self._find_course_assets(course_key)
+            self.asset_collection.remove(course_assets['_id'])
+        except ItemNotFoundError:
+            # When deleting asset metadata, if a course's asset metadata is not present, no big deal.
+            pass
 
     def heartbeat(self):
         """
