@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Test for lms courseware app, module render unit
 """
@@ -203,6 +204,14 @@ class ModuleRenderTestCase(ModuleStoreTestCase, LoginEnrollmentTestCase):
         self.assertEqual(json.loads(response.content), {'success': True})
 
         response = self.client.post(dispatch_url, {'position': "string"})
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(json.loads(response.content), {'success': True})
+
+        response = self.client.post(dispatch_url, {'position': u"Φυσικά"})
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(json.loads(response.content), {'success': True})
+
+        response = self.client.post(dispatch_url, {'position': None})
         self.assertEqual(200, response.status_code)
         self.assertEqual(json.loads(response.content), {'success': True})
 
