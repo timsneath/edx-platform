@@ -682,7 +682,6 @@ class PayAndVerifyView(View):
             1: _("one"),
             2: _("two"),
             3: _("three"),
-            4: _("four"),
         }
 
         # Count requirements
