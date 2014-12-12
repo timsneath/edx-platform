@@ -1054,6 +1054,7 @@ verify_student_js = [
     'js/my_courses_dropdown.js',
     'js/verify_student/views/pay_and_verify_view.js',
     'js/verify_student/views/step_view.js',
+    'js/verify_student/views/pre_req_step_view.js',
     'js/verify_student/views/intro_step_view.js',
     'js/verify_student/views/make_payment_step_view.js',
     'js/verify_student/views/payment_confirmation_step_view.js',

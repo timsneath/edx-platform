@@ -42,6 +42,7 @@ var edx = edx || {};
             // outside of this method the subview classes
             // might not yet have been loaded.
             subviewConstructors = {
+                'pre-req-step': edx.verify_student.PreReqStepView,
                 'intro-step': edx.verify_student.IntroStepView,
                 'make-payment-step': edx.verify_student.MakePaymentStepView,
                 'payment-confirmation-step': edx.verify_student.PaymentConfirmationStepView,

@@ -28,6 +28,12 @@ var edx = edx || {};
         displaySteps: el.data('display-steps'),
         currentStep: el.data('current-step'),
         stepInfo: {
+            'pre-req-step': {
+                introTitle: el.data('intro-title'),
+                introMsg: el.data('intro-msg'),
+                platformName: el.data('platform-name'),
+                requirements: el.data('requirements')
+            },
             'intro-step': {
                 introTitle: el.data('intro-title'),
                 introMsg: el.data('intro-msg'),
