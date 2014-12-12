@@ -1,12 +1,10 @@
 define(
-    ["jquery", "backbone", "js/views/previous_video_upload"],
-    function($, Backbone, PreviousVideoUploadView) {
+    ["jquery", "backbone", "js/views/previous_video_upload", "js/common_helpers/template_helpers"],
+    function($, Backbone, PreviousVideoUploadView, TemplateHelpers) {
         "use strict";
         describe("PreviousVideoUploadView", function() {
-            var previousVideoUploadTpl = readFixtures("previous-video-upload.underscore");
-
             beforeEach(function() {
-                setFixtures($("<script>", {id: "previous-video-upload-tpl", type: "text/template"}).text(previousVideoUploadTpl));
+                TemplateHelpers.installTemplate("previous-video-upload", true);
             });
 
             var render = function(modelData) {

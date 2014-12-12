@@ -1,20 +1,16 @@
 define(
-    ["jquery", "js/models/active_video_upload", "js/views/active_video_upload_list", "mock-ajax", "jasmine-jquery"],
-    function($, ActiveVideoUpload, ActiveVideoUploadListView) {
+    ["jquery", "js/models/active_video_upload", "js/views/active_video_upload_list", "js/common_helpers/template_helpers", "mock-ajax", "jasmine-jquery"],
+    function($, ActiveVideoUpload, ActiveVideoUploadListView, TemplateHelpers) {
         "use strict";
         var concurrentUploadLimit = 2;
-        var activeVideoUploadTpl = readFixtures("active-video-upload.underscore");
-        var activeVideoUploadListTpl = readFixtures("active-video-upload-list.underscore");
 
         describe("ActiveVideoUploadListView", function() {
             beforeEach(function() {
-                setFixtures($("<script>", {id: "active-video-upload-tpl", type: "text/template"}).text(activeVideoUploadTpl));
-                appendSetFixtures($("<script>", {id: "active-video-upload-list-tpl", type: "text/template"}).text(activeVideoUploadListTpl));
-                appendSetFixtures(sandbox());
+                TemplateHelpers.installTemplate("active-video-upload", true);
+                TemplateHelpers.installTemplate("active-video-upload-list");
                 this.postUrl = "/test/post/url";
                 this.uploadButton = $("<button>");
                 this.view = new ActiveVideoUploadListView({
-                    el: $("#sandbox"),
                     concurrentUploadLimit: concurrentUploadLimit,
                     postUrl: this.postUrl,
                     uploadButton: this.uploadButton
@@ -51,8 +47,8 @@ define(
             _.each(
                 [
                     {desc: "a single file", numFiles: 1},
-                    {desc: "multiple files", numFiles: 2},
-                    {desc: "more files than upload limit", numFiles: 3},
+                    {desc: "multiple files", numFiles: concurrentUploadLimit},
+                    {desc: "more files than upload limit", numFiles: concurrentUploadLimit + 1},
                 ],
                 function(caseInfo) {
                     var fileNames = _.map(
@@ -148,8 +144,8 @@ define(
                                             ActiveVideoUpload.STATUS_QUEUED :
                                             ActiveVideoUpload.STATUS_UPLOADING
                                     );
-                                    expect($uploadElem.find(".success")).not.toExist();
-                                    expect($uploadElem.find(".error")).not.toExist();
+                                    expect($uploadElem.find(".success").length).toEqual(0);
+                                    expect($uploadElem.find(".error").length).toEqual(0);
                                 });
                             });
 
@@ -177,13 +173,13 @@ define(
                                         });
 
                                         it("should update status", function() {
-                                            var $uploadElem = $(".active-video-upload:first");
+                                            var $uploadElem = this.view.$(".active-video-upload:first");
                                             expect($uploadElem.length).toEqual(1);
                                             expect($.trim($uploadElem.find(".video-detail-status").text())).toEqual(
                                                 subCaseInfo.statusText
                                             );
-                                            expect($uploadElem.find(subCaseInfo.presentSelector)).toExist();
-                                            expect($uploadElem.find(subCaseInfo.absentSelector)).not.toExist();
+                                            expect($uploadElem.find(subCaseInfo.presentSelector).length).toEqual(1);
+                                            expect($uploadElem.find(subCaseInfo.absentSelector).length).toEqual(0);
                                         });
 
                                         it("should not trigger the global AJAX error handler", function() {

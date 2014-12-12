@@ -1,7 +1,6 @@
 requirejs.config({
     paths: {
         "gettext": "xmodule_js/common_static/js/test/i18n",
-        "i18n": "xmodule_js/common_static/js/test/i18n.js#", # Munge URL to avoid conflicting with gettext above
         "mustache": "xmodule_js/common_static/js/vendor/mustache",
         "codemirror": "xmodule_js/common_static/js/vendor/CodeMirror/codemirror",
         "jquery": "xmodule_js/common_static/js/vendor/jquery.min",
@@ -55,14 +54,6 @@ requirejs.config({
     shim: {
         "gettext": {
             exports: "gettext"
-        },
-        "i18n": {
-            init: ->
-                {
-                    gettext: gettext,
-                    gettext_noop: gettext_noop,
-                    interpolate: interpolate
-                }
         },
         "date": {
             exports: "Date"

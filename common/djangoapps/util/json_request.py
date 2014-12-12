@@ -14,15 +14,16 @@ def expect_json(view_function):
     """
     @wraps(view_function)
     def parse_json_into_request(request, *args, **kwargs):
-        request.json = {}
         # cdodge: fix postback errors in CMS. The POST 'content-type' header can include additional information
         # e.g. 'charset', so we can't do a direct string compare
         if "application/json" in request.META.get('CONTENT_TYPE', '') and request.body:
             try:
                 request.json = json.loads(request.body)
             except ValueError:
-                pass
-    
+                return JsonResponseBadRequest({"error": "Invalid JSON"})
+        else:
+            request.json = {}
+
         return view_function(request, *args, **kwargs)
 
     return parse_json_into_request

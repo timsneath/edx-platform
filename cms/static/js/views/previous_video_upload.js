@@ -1,26 +1,26 @@
 define(
-    ["i18n", "js/utils/date_utils", "js/views/baseview"],
-    function(i18n, DateUtils, BaseView) {
+    ["gettext", "js/utils/date_utils", "js/views/baseview"],
+    function(gettext, DateUtils, BaseView) {
         "use strict";
 
         var statusDisplayStrings = {
             // Translators: This is the status of an active video upload
-            UPLOADING: i18n.gettext("Uploading"),
+            UPLOADING: gettext("Uploading"),
             // Translators: This is the status for a video that the servers
             // are currently processing
-            IN_PROGRESS: i18n.gettext("In Progress"),
+            IN_PROGRESS: gettext("In Progress"),
             // Translators: This is the status for a video that the servers
             // have successfully processed
-            COMPLETE: i18n.gettext("Complete"),
+            COMPLETE: gettext("Complete"),
             // Translators: This is the status for a video that the servers
             // have failed to process
-            FAILED: i18n.gettext("Failed"),
+            FAILED: gettext("Failed"),
             // Translators: This is the status for a video for which an invalid
             // processing token was provided in the course settings
-            INVALID_TOKEN: i18n.gettext("Invalid Token"),
+            INVALID_TOKEN: gettext("Invalid Token"),
             // Translators: This is the status for a video that is in an unknown
             // state
-            UNKNOWN: i18n.gettext("Unknown")
+            UNKNOWN: gettext("Unknown")
         };
 
         var statusMap = {
@@ -55,7 +55,7 @@ define(
                     // Translators: This is listed as the duration for a video
                     // that has not yet reached the point in its processing by
                     // the servers where its duration is determined.
-                    duration: duration > 0 ? this.renderDuration(duration) : i18n.gettext("Pending"),
+                    duration: duration > 0 ? this.renderDuration(duration) : gettext("Pending"),
                     created: DateUtils.renderDate(this.model.get("created")),
                     status: statusMap[this.model.get("status")] || statusDisplayStrings.UNKNOWN
                 };

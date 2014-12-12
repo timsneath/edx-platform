@@ -1,14 +1,11 @@
 define(
-    ["jquery", "underscore", "backbone", "js/views/previous_video_upload_list"],
-    function($, _, Backbone, PreviousVideoUploadListView) {
+    ["jquery", "underscore", "backbone", "js/views/previous_video_upload_list", "js/common_helpers/template_helpers"],
+    function($, _, Backbone, PreviousVideoUploadListView, TemplateHelpers) {
         "use strict";
         describe("PreviousVideoUploadListView", function() {
-            var previousVideoUploadTpl = readFixtures("previous-video-upload.underscore");
-            var previousVideoUploadListTpl = readFixtures("previous-video-upload-list.underscore");
-
             beforeEach(function() {
-                setFixtures($("<script>", {id: "previous-video-upload-tpl", type: "text/template"}).text(previousVideoUploadTpl));
-                appendSetFixtures($("<script>", {id: "previous-video-upload-list-tpl", type: "text/template"}).text(previousVideoUploadListTpl));
+                TemplateHelpers.installTemplate("previous-video-upload", true);
+                TemplateHelpers.installTemplate("previous-video-upload-list");
             });
 
             var render = function(numModels) {

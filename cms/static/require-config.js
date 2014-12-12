@@ -4,7 +4,6 @@ require.config({
     paths: {
         "domReady": "js/vendor/domReady",
         "gettext": "/i18n",
-        "i18n": "/i18n.js#", // Munge URL to avoid conflicting with gettext above
         "mustache": "js/vendor/mustache",
         "codemirror": "js/vendor/codemirror-compressed",
         "codemirror/stex": "js/vendor/CodeMirror/stex",
@@ -84,15 +83,6 @@ require.config({
     shim: {
         "gettext": {
             exports: "gettext"
-        },
-        "i18n": {
-            init: function() {
-                return {
-                    gettext: gettext,
-                    gettext_noop: gettext_noop,
-                    interpolate: interpolate
-                };
-            }
         },
         "date": {
             exports: "Date"
