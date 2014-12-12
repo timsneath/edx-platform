@@ -559,7 +559,7 @@ class DraftModuleStore(MongoModuleStore):
                 # Don't delete modules if one of its parents shouldn't be deleted
                 # This should only be an issue for courses have ended up in
                 # a state where modules have multiple parents
-                if all(parent in to_be_deleted for parent in parents):
+                if any(parent not in to_be_deleted for parent in parents):
                     for rev_func in as_functions:
                         current_loc = rev_func(child_loc)
                         current_son = current_loc.to_deprecated_son()
