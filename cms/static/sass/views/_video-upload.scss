@@ -51,8 +51,8 @@
       .active-video-upload {
         display: inline-block;
         min-height: ($baseline*4);
-        width: flex-grid(4);
-        margin: (flex-gutter() - 1.6);
+        width: (flex-grid(4) - 1.85);
+        margin: (flex-gutter() - 1.85);
         border: 1px solid $gray-l3;
         border-radius: ($baseline/5);
         padding: ($baseline/2);
